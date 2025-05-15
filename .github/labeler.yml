@@ -10,8 +10,16 @@
  - any: [ 'CHANGELOG.md' ]
 "Config Change":
  - any: [ 'src/**/*.json', '!src/global.json' ]
+"credfeto-cache-proxy-models":
+ - any: [ 'src/$Credfeto.Cache.Proxy.Models/**/*' ]
 "credfeto-cache-proxy-server":
  - any: [ 'src/$Credfeto.Cache.Proxy.Server/**/*' ]
+"credfeto-cache-proxy-storage-filesystem":
+ - any: [ 'src/$Credfeto.Cache.Proxy.Storage.FileSystem/**/*' ]
+"credfeto-cache-proxy-storage-filesystem-tests":
+ - any: [ 'src/$Credfeto.Cache.Proxy.Storage.FileSystem.Tests/**/*' ]
+"credfeto-cache-proxy-storage-interfaces":
+ - any: [ 'src/$Credfeto.Cache.Proxy.Storage.Interfaces/**/*' ]
 "github-actions":
  - any: [ '.github/workflows/*.yml' ]
 "Legal Text":
