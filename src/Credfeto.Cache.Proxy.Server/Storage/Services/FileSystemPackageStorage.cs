@@ -34,7 +34,11 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         }
         catch (Exception exception)
         {
-            this._logger.FailedToReadFileFromCache(filename: sourcePath, message: exception.Message, exception: exception);
+            this._logger.FailedToReadFileFromCache(
+                filename: sourcePath,
+                message: exception.Message,
+                exception: exception
+            );
 
             return null;
         }
