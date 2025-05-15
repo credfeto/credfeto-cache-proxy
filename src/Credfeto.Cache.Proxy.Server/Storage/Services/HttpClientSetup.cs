@@ -21,12 +21,20 @@ internal static class HttpClientSetup
         {
             Uri target = HttpClientNames.GetHttpClientUri(config: config, out string name);
 
-            services = services.AddHttpClient(name: name, configureClient: httpClient => InitializeNupkgClient(upstreamUrl: target, httpClient: httpClient, httpTimeout: HttpTimeout))
-                               .SetHandlerLifetime(TimeSpan.FromMinutes(5))
-                               .ConfigurePrimaryHttpMessageHandler(configureHandler: _ => new HttpClientHandler { AutomaticDecompression = DecompressionMethods.All })
-                               .AddPolicyHandler(Policy.BulkheadAsync<HttpResponseMessage>(CONCURRENT_ACTIONS * 2, QUEUED_ACTIONS * 2))
-                               .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(PollyTimeout))
-                               .Services;
+            services = services
+                .AddHttpClient(
+                    name: name,
+                    configureClient: httpClient =>
+                        InitializeNupkgClient(upstreamUrl: target, httpClient: httpClient, httpTimeout: HttpTimeout)
+                )
+                .SetHandlerLifetime(TimeSpan.FromMinutes(5))
+                .ConfigurePrimaryHttpMessageHandler(configureHandler: _ => new HttpClientHandler
+                {
+                    AutomaticDecompression = DecompressionMethods.All,
+                })
+                .AddPolicyHandler(Policy.BulkheadAsync<HttpResponseMessage>(CONCURRENT_ACTIONS * 2, QUEUED_ACTIONS * 2))
+                .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(PollyTimeout))
+                .Services;
         }
 
         return services;
@@ -38,7 +46,9 @@ internal static class HttpClientSetup
         httpClient.DefaultRequestVersion = HttpVersion.Version11;
         httpClient.BaseAddress = upstreamUrl;
         httpClient.DefaultRequestHeaders.Accept.Add(new(mediaType: "application/octet-stream"));
-        httpClient.DefaultRequestHeaders.UserAgent.Add(new(new ProductHeaderValue(name: VersionInformation.Product, version: VersionInformation.Version)));
+        httpClient.DefaultRequestHeaders.UserAgent.Add(
+            new(new ProductHeaderValue(name: VersionInformation.Product, version: VersionInformation.Version))
+        );
         httpClient.Timeout = httpTimeout;
     }
 }
