@@ -53,8 +53,8 @@
     <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-xhfc-gr8f-ffwc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Credfeto.Cache.Proxy.Storage.Interfaces\Credfeto.Cache.Proxy.Storage.Interfaces.csproj" />
     <ProjectReference Include="..\Credfeto.Cache.Proxy.Models\Credfeto.Cache.Proxy.Models.csproj" />
+    <ProjectReference Include="..\Credfeto.Cache.Proxy.Storage.Interfaces\Credfeto.Cache.Proxy.Storage.Interfaces.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.5" />
