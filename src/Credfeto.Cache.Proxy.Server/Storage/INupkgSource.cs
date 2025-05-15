@@ -1,0 +1,11 @@
+using System.Net.Http.Headers;
+using System.Threading;
+using System.Threading.Tasks;
+using Credfeto.Cache.Proxy.Server.Config;
+
+namespace Credfeto.Cache.Proxy.Server.Storage;
+
+public interface INupkgSource
+{
+    ValueTask<PackageResult?> GetFromUpstreamAsync(CacheServerConfig config, string path, ProductInfoHeaderValue? userAgent, CancellationToken cancellationToken);
+}

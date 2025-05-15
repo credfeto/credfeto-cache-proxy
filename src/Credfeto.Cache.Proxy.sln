@@ -9,7 +9,21 @@ ProjectSection(SolutionItems) = preProject
 	global.json = global.json
 	..\CHANGELOG.md = ..\CHANGELOG.md
 	..\README.md = ..\README.md
+	..\Dockerfile = ..\Dockerfile
+	publish = publish
 EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Credfeto.Cache.Proxy.Server", "Credfeto.Cache.Proxy.Server\Credfeto.Cache.Proxy.Server.csproj", "{55F91218-E55E-405E-BD02-8E01EA64C5B3}"
+EndProject
 Global
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55F91218-E55E-405E-BD02-8E01EA64C5B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55F91218-E55E-405E-BD02-8E01EA64C5B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55F91218-E55E-405E-BD02-8E01EA64C5B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55F91218-E55E-405E-BD02-8E01EA64C5B3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
 EndGlobal
