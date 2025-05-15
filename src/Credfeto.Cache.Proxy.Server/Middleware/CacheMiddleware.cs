@@ -41,7 +41,9 @@ public sealed class CacheMiddleware : IMiddleware
             return;
         }
 
-        CacheServerConfig? config = this._config.Sites.FirstOrDefault(p => StringComparer.Ordinal.Equals(x: p.Source, y: host));
+        CacheServerConfig? config = this._config.Sites.FirstOrDefault(p =>
+            StringComparer.Ordinal.Equals(x: p.Source, y: host)
+        );
 
         if (config is null)
         {
@@ -57,7 +59,12 @@ public sealed class CacheMiddleware : IMiddleware
 
         try
         {
-            PackageResult? result = await this._nupkgSource.GetFromUpstreamAsync(config: config, path: path, userAgent: userAgent, cancellationToken: cancellationToken);
+            PackageResult? result = await this._nupkgSource.GetFromUpstreamAsync(
+                config: config,
+                path: path,
+                userAgent: userAgent,
+                cancellationToken: cancellationToken
+            );
 
             if (result is null)
             {
@@ -87,9 +94,10 @@ public sealed class CacheMiddleware : IMiddleware
         context.Response.StatusCode = (int)HttpStatusCode.OK;
         context.Response.Headers.Append(key: "Content-Type", value: "application/octet-stream");
         context.Response.Headers.CacheControl = "public, max-age=63072000, immutable";
-        context.Response.Headers.Expires = this._currentTimeSource.UtcNow()
-                                               .AddSeconds(63072000)
-                                               .ToString(format: "ddd, dd MMM yyyy HH:mm:ss 'GMT'", formatProvider: CultureInfo.InvariantCulture);
+        context.Response.Headers.Expires = this
+            ._currentTimeSource.UtcNow()
+            .AddSeconds(63072000)
+            .ToString(format: "ddd, dd MMM yyyy HH:mm:ss 'GMT'", formatProvider: CultureInfo.InvariantCulture);
 
         await using (MemoryStream stream = new(buffer: data.Data, writable: false))
         {
@@ -117,8 +125,6 @@ public sealed class CacheMiddleware : IMiddleware
 
     private static string GetPath(HttpContext context)
     {
-        return context.Request.Path.HasValue
-            ? context.Request.Path.Value
-            : "/";
+        return context.Request.Path.HasValue ? context.Request.Path.Value : "/";
     }
 }
