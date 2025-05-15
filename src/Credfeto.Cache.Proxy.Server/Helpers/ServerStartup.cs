@@ -140,7 +140,7 @@ internal static class ServerStartup
                     [new(Match: "\\.tar\\.gz$", LifeTimeSeconds: 63115200)]
                 ),
             ],
-            Storage: "/cache/proxy"
+            Storage: "/data"
         );
     }
 
