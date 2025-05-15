@@ -13,10 +13,10 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated Credfeto.Enumeration to 1.2.83.1123
 - Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.70.545
 - Dependencies - Updated Microsoft.VisualStudio.Threading.Analyzers to 17.14.15
-- Dependencies - Updated Credfeto.Date to 1.1.91.1037
 - Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.11.120
 - Dependencies - Updated Credfeto.Extensions.Linq to 1.0.91.911
 - Dependencies - Updated Microsoft.Extensions to 9.0.5
+- Dependencies - Updated Credfeto.Date to 1.1.92.1039
 ### Removed
 ### Deployment Changes
 
