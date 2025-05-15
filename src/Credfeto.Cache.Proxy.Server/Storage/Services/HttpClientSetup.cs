@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Credfeto.Cache.Proxy.Server.Config;
+using Credfeto.Cache.Proxy.Models.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 

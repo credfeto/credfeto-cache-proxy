@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using Credfeto.Cache.Proxy.Server.Config;
+using Credfeto.Cache.Proxy.Models.Config;
 
 namespace Credfeto.Cache.Proxy.Server.Storage;
 

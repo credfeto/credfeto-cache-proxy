@@ -4,11 +4,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using System.Threading;
-using Credfeto.Cache.Proxy.Server.Config;
+using Credfeto.Cache.Proxy.Models.Config;
 using Credfeto.Cache.Proxy.Server.Middleware;
-using Credfeto.Cache.Proxy.Server.Models;
 using Credfeto.Cache.Proxy.Server.Storage;
 using Credfeto.Cache.Proxy.Server.Storage.Services;
+using Credfeto.Cache.Proxy.Storage.FileSystem;
+using Credfeto.Cache.Storage.Interfaces;
 using Credfeto.Date;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,6 +21,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Configuration;
 using Serilog.Core;
+using AppJsonContexts = Credfeto.Cache.Proxy.Models.AppJsonContexts;
 
 namespace Credfeto.Cache.Proxy.Server.Helpers;
 

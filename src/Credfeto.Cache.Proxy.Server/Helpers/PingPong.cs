@@ -1,4 +1,4 @@
-using Credfeto.Cache.Proxy.Server.Models;
+using Credfeto.Cache.Proxy.Models;
 
 namespace Credfeto.Cache.Proxy.Server.Helpers;
 

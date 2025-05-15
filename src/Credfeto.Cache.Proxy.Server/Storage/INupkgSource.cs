@@ -1,7 +1,7 @@
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using Credfeto.Cache.Proxy.Server.Config;
+using Credfeto.Cache.Proxy.Models.Config;
 
 namespace Credfeto.Cache.Proxy.Server.Storage;
 

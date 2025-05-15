@@ -2,11 +2,12 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Credfeto.Cache.Proxy.Server.Config;
-using Credfeto.Cache.Proxy.Server.Storage.Services.LoggerExtensions;
+using Credfeto.Cache.Proxy.Models.Config;
+using Credfeto.Cache.Proxy.Storage.FileSystem.LoggerExtensions;
+using Credfeto.Cache.Storage.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace Credfeto.Cache.Proxy.Server.Storage.Services;
+namespace Credfeto.Cache.Proxy.Storage.FileSystem;
 
 public sealed class FileSystemPackageStorage : IPackageStorage
 {
