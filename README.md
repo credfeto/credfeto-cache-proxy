@@ -1,12 +1,13 @@
-# cs-template
-C# Template
+# credfeto-cache-proxy
+
+Simple caching proxy 
 
 ## Build Status
 
 | Branch  | Status                                                                                                                                                                                                                                |
 |---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| main    | [![Build: Pre-Release](https://github.com/credfeto/cs-template/actions/workflows/build-and-publish-pre-release.yml/badge.svg)](https://github.com/credfeto/cs-template/actions/workflows/build-and-publish-pre-release.yml) |
-| release | [![Build: Release](https://github.com/credfeto/cs-template/actions/workflows/build-and-publish-release.yml/badge.svg)](https://github.com/credfeto/cs-template/actions/workflows/build-and-publish-release.yml)             |
+| main    | [![Build: Pre-Release](https://github.com/credfeto/credfeto-cache-proxy/actions/workflows/build-and-publish-pre-release.yml/badge.svg)](https://github.com/credfeto/credfeto-cache-proxy/actions/workflows/build-and-publish-pre-release.yml) |
+| release | [![Build: Release](https://github.com/credfeto/credfeto-cache-proxy/actions/workflows/build-and-publish-release.yml/badge.svg)](https://github.com/credfeto/credfeto-cache-proxy/actions/workflows/build-and-publish-release.yml)             |
 
 ## Changelog
 
