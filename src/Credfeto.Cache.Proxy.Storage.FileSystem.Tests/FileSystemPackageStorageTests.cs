@@ -19,6 +19,13 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
     {
         ServerConfig config = new([], Storage: this.TempFolder);
 
+        string directory = Path.Combine(path1: this.TempFolder, path2: HOST);
+
+        if (!Directory.Exists(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+
         this._packageStorage = new FileSystemPackageStorage(config: config, this.GetTypedLogger<FileSystemPackageStorage>());
     }
 

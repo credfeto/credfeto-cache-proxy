@@ -26,9 +26,16 @@ public sealed class FileSystemPackageStorage : IPackageStorage
     {
         string packagePath = this.BuildPackagePath(sourceHost: sourceHost, path: sourcePath);
 
+        string? dir = Path.GetDirectoryName(packagePath);
+
+        if (string.IsNullOrEmpty(dir))
+        {
+            return null;
+        }
+
         try
         {
-            if (File.Exists(packagePath))
+            if (Directory.Exists(dir) && File.Exists(packagePath))
             {
                 return await File.ReadAllBytesAsync(path: packagePath, cancellationToken: cancellationToken);
             }
@@ -66,18 +73,18 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         }
     }
 
-    private void EnsureDirectoryExists(string folder)
+    private void EnsureDirectoryExists(string directory)
     {
         try
         {
-            if (!Directory.Exists(folder))
+            if (!Directory.Exists(directory))
             {
-                Directory.CreateDirectory(folder);
+                Directory.CreateDirectory(directory);
             }
         }
         catch (Exception exception)
         {
-            this._logger.SaveFailed(filename: folder, message: exception.Message, exception: exception);
+            this._logger.SaveFailed(filename: directory, message: exception.Message, exception: exception);
         }
     }
 
