@@ -44,4 +44,21 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
         Assert.NotNull(result);
         Assert.Equal(expected: 4, actual: result.Length);
     }
+
+    [Fact]
+    public async Task SafeFileMakeItExistAsync()
+    {
+        CancellationToken cancellationToken = this.CancellationToken();
+
+        byte[]? resultBefore = await this._packageStorage.ReadFileAsync(sourceHost: HOST, sourcePath: "file.txt", cancellationToken: cancellationToken);
+
+        Assert.Null(resultBefore);
+
+        await this._packageStorage.SaveFileAsync(sourceHost: HOST, sourcePath: "file.txt", "test"u8.ToArray(), cancellationToken: cancellationToken);
+
+        byte[]? resultAfter = await this._packageStorage.ReadFileAsync(sourceHost: HOST, sourcePath: "file.txt", cancellationToken: cancellationToken);
+
+        Assert.NotNull(resultAfter);
+        Assert.Equal(expected: 4, actual: resultAfter.Length);
+    }
 }
