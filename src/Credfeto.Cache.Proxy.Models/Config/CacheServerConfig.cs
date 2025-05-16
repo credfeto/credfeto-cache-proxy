@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -8,6 +9,8 @@ public sealed record CacheServerConfig(string Source, string Target, IReadOnlyLi
 {
     public string HostOnlyTarget()
     {
-        return this.Target.Split(':')[0];
+        Uri uri = new(uriString: this.Target, uriKind: UriKind.Absolute);
+
+        return uri.DnsSafeHost;
     }
 }
