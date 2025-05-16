@@ -22,7 +22,11 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         this.EnsureDirectoryExists(config.Storage);
     }
 
-    public async ValueTask<byte[]?> ReadFileAsync(string sourceHost, string sourcePath, CancellationToken cancellationToken)
+    public async ValueTask<byte[]?> ReadFileAsync(
+        string sourceHost,
+        string sourcePath,
+        CancellationToken cancellationToken
+    )
     {
         string packagePath = this.BuildPackagePath(sourceHost: sourceHost, path: sourcePath);
 
@@ -42,7 +46,11 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         }
         catch (Exception exception)
         {
-            this._logger.FailedToReadFileFromCache(filename: sourcePath, message: exception.Message, exception: exception);
+            this._logger.FailedToReadFileFromCache(
+                filename: sourcePath,
+                message: exception.Message,
+                exception: exception
+            );
 
             return null;
         }
@@ -50,7 +58,12 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         return null;
     }
 
-    public async ValueTask SaveFileAsync(string sourceHost, string sourcePath, byte[] buffer, CancellationToken cancellationToken)
+    public async ValueTask SaveFileAsync(
+        string sourceHost,
+        string sourcePath,
+        byte[] buffer,
+        CancellationToken cancellationToken
+    )
     {
         string packagePath = this.BuildPackagePath(sourceHost: sourceHost, path: sourcePath);
 
