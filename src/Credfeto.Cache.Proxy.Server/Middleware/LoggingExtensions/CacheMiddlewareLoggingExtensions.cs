@@ -15,5 +15,11 @@ internal static partial class CacheMiddlewareLoggingExtensions
     public static partial void StartingFetch(this ILogger<CacheMiddleware> logger, string host, string path);
 
     [LoggerMessage(LogLevel.Information, EventId = 4, Message = "Request failed: https://{host}{path} -> {message}")]
-    public static partial void RequestFailed(this ILogger<CacheMiddleware> logger, string host, string path, string message, Exception exception);
+    public static partial void RequestFailed(
+        this ILogger<CacheMiddleware> logger,
+        string host,
+        string path,
+        string message,
+        Exception exception
+    );
 }
