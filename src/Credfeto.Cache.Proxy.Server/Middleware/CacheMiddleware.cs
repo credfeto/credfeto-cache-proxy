@@ -74,8 +74,9 @@ public sealed class CacheMiddleware : IMiddleware
         {
             TooManyRequests(context);
         }
-        catch (Exception)
+        catch (Exception exception)
         {
+            this._logger.RequestFailed(host: config.Source, path: path, message: exception.Message, exception: exception);
             Failed(context: context, result: HttpStatusCode.NotFound);
         }
     }
