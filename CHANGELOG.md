@@ -17,6 +17,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.12.123
 - Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.71.550
 - Dependencies - Updated Credfeto.Enumeration to 1.2.84.1127
+- Dependencies - Updated Microsoft.Sbom.Targets to 4.0.3
 ### Removed
 ### Deployment Changes
 
