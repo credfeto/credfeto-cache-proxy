@@ -7,5 +7,10 @@ namespace Credfeto.Cache.Proxy.Server.Storage;
 
 public interface IContentSource
 {
-    ValueTask<PackageResult?> GetFromUpstreamAsync(CacheServerConfig config, string path, ProductInfoHeaderValue? userAgent, CancellationToken cancellationToken);
+    ValueTask<PackageResult?> GetFromUpstreamAsync(
+        CacheServerConfig config,
+        string path,
+        ProductInfoHeaderValue? userAgent,
+        CancellationToken cancellationToken
+    );
 }
