@@ -8,5 +8,10 @@ namespace Credfeto.Cache.Proxy.Server.Storage;
 
 public interface IContentDownloader
 {
-    ValueTask<byte[]> ReadUpstreamAsync(CacheServerConfig config, PathString path, ProductInfoHeaderValue? userAgent, CancellationToken cancellationToken);
+    ValueTask<byte[]> ReadUpstreamAsync(
+        CacheServerConfig config,
+        PathString path,
+        ProductInfoHeaderValue? userAgent,
+        CancellationToken cancellationToken
+    );
 }
