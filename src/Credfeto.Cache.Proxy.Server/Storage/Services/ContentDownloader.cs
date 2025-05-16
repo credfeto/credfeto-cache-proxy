@@ -13,44 +13,30 @@ using Microsoft.Extensions.Logging;
 
 namespace Credfeto.Cache.Proxy.Server.Storage.Services;
 
-public sealed class PackageDownloader : IPackageDownloader
+public sealed class ContentDownloader : IContentDownloader
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly ILogger<PackageDownloader> _logger;
+    private readonly ILogger<ContentDownloader> _logger;
 
-    public PackageDownloader(IHttpClientFactory httpClientFactory, ILogger<PackageDownloader> logger)
+    public ContentDownloader(IHttpClientFactory httpClientFactory, ILogger<ContentDownloader> logger)
     {
         this._httpClientFactory = httpClientFactory;
         this._logger = logger;
     }
 
-    public async ValueTask<byte[]> ReadUpstreamAsync(
-        CacheServerConfig config,
-        PathString path,
-        ProductInfoHeaderValue? userAgent,
-        CancellationToken cancellationToken
-    )
+    public async ValueTask<byte[]> ReadUpstreamAsync(CacheServerConfig config, PathString path, ProductInfoHeaderValue? userAgent, CancellationToken cancellationToken)
     {
         HttpClient client = this.GetClient(config: config, userAgent: userAgent, out Uri baseUri);
 
         Uri requestUri = MakeUri(baseUri: baseUri, path: path);
 
-        using (
-            HttpResponseMessage result = await client.GetAsync(
-                requestUri: requestUri,
-                cancellationToken: cancellationToken
-            )
-        )
+        using (HttpResponseMessage result = await client.GetAsync(requestUri: requestUri, cancellationToken: cancellationToken))
         {
             if (result.IsSuccessStatusCode)
             {
                 byte[] bytes = await result.Content.ReadAsByteArrayAsync(cancellationToken: cancellationToken);
 
-                this._logger.UpstreamPackageOk(
-                    upstream: requestUri,
-                    statusCode: result.StatusCode,
-                    length: bytes.Length
-                );
+                this._logger.UpstreamPackageOk(upstream: requestUri, statusCode: result.StatusCode, length: bytes.Length);
 
                 return bytes;
             }
@@ -69,17 +55,15 @@ public sealed class PackageDownloader : IPackageDownloader
     [DoesNotReturn]
     private static byte[] Failed(Uri requestUri, HttpStatusCode resultStatusCode)
     {
-        throw new HttpRequestException(
-            $"Failed to download {requestUri}: {resultStatusCode.GetName()}",
-            inner: null,
-            statusCode: resultStatusCode
-        );
+        throw new HttpRequestException($"Failed to download {requestUri}: {resultStatusCode.GetName()}", inner: null, statusCode: resultStatusCode);
     }
 
     private HttpClient GetClient(CacheServerConfig config, ProductInfoHeaderValue? userAgent, out Uri baseUri)
     {
         baseUri = HttpClientNames.GetHttpClientUri(config: config, out string name);
 
-        return this._httpClientFactory.CreateClient(name).WithBaseAddress(baseUri).WithUserAgent(userAgent);
+        return this._httpClientFactory.CreateClient(name)
+                   .WithBaseAddress(baseUri)
+                   .WithUserAgent(userAgent);
     }
 }

@@ -23,14 +23,14 @@ namespace Credfeto.Cache.Proxy.Server.Middleware;
 public sealed class CacheMiddleware : IMiddleware
 {
     private readonly ServerConfig _config;
+    private readonly IContentSource _contentSource;
     private readonly ICurrentTimeSource _currentTimeSource;
     private readonly ILogger<CacheMiddleware> _logger;
-    private readonly INupkgSource _nupkgSource;
 
-    public CacheMiddleware(ServerConfig config, INupkgSource nupkgSource, ICurrentTimeSource currentTimeSource, ILogger<CacheMiddleware> logger)
+    public CacheMiddleware(ServerConfig config, IContentSource contentSource, ICurrentTimeSource currentTimeSource, ILogger<CacheMiddleware> logger)
     {
         this._config = config;
-        this._nupkgSource = nupkgSource;
+        this._contentSource = contentSource;
         this._currentTimeSource = currentTimeSource;
         this._logger = logger;
     }
@@ -55,7 +55,7 @@ public sealed class CacheMiddleware : IMiddleware
 
         try
         {
-            PackageResult? result = await this._nupkgSource.GetFromUpstreamAsync(config: config, path: path, userAgent: userAgent, cancellationToken: cancellationToken);
+            PackageResult? result = await this._contentSource.GetFromUpstreamAsync(config: config, path: path, userAgent: userAgent, cancellationToken: cancellationToken);
 
             if (result is null)
             {

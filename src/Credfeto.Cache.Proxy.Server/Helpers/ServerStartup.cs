@@ -93,8 +93,8 @@ internal static class ServerStartup
                .AddDate()
                .AddSingleton<CacheMiddleware>()
                .AddSingleton<IPackageStorage, FileSystemPackageStorage>()
-               .AddSingleton<IPackageDownloader, PackageDownloader>()
-               .AddSingleton<INupkgSource, NupkgSource>()
+               .AddSingleton<IContentDownloader, ContentDownloader>()
+               .AddSingleton<IContentSource, ContentSource>()
                .AddNupkgClient(appConfig)
                .ConfigureHttpJsonOptions(options => options.SerializerOptions.TypeInfoResolverChain.Insert(index: 0, item: AppJsonContexts.Default));
 
