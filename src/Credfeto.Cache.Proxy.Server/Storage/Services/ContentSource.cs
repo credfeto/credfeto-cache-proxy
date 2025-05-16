@@ -29,11 +29,21 @@ public sealed class ContentSource : IContentSource
 
     private async ValueTask<PackageResult?> TryToGetFromCacheAsync(CacheServerConfig config, string sourcePath, CancellationToken cancellationToken)
     {
+        if (RequestHasQuery(sourcePath))
+        {
+            return null;
+        }
+
         byte[]? data = await this._packageStorage.ReadFileAsync(Path.Combine(path1: config.Target, path2: sourcePath), cancellationToken: cancellationToken);
 
         return data is null
             ? null
             : new(Data: data, ShouldCache(config: config, sourcePath: sourcePath));
+    }
+
+    private static bool RequestHasQuery(string sourcePath)
+    {
+        return sourcePath.Contains(value: '?', comparisonType: StringComparison.Ordinal);
     }
 
     private async ValueTask<PackageResult?> GetFromUpstream2Async(CacheServerConfig config, string sourcePath, ProductInfoHeaderValue? userAgent, CancellationToken cancellationToken)
@@ -42,7 +52,7 @@ public sealed class ContentSource : IContentSource
 
         CacheSetting? cacheSetting = ShouldCache(config: config, sourcePath: sourcePath);
 
-        if (cacheSetting is not null)
+        if (cacheSetting is not null && !RequestHasQuery(sourcePath))
         {
             await this._packageStorage.SaveFileAsync(sourcePath: sourcePath, buffer: data, cancellationToken: cancellationToken);
         }

@@ -55,15 +55,18 @@ public sealed class CacheMiddleware : IMiddleware
         }
 
         string path = GetPath(context);
+        string? query = context.Request.QueryString.Value;
 
-        this._logger.StartingFetch(host: config.Source, path: path);
+        string pathWithQuery = GetPathWithQuery(query: query, path: path);
+
+        this._logger.StartingFetch(host: config.Source, path: pathWithQuery);
 
         CancellationToken cancellationToken = context.RequestAborted;
         ProductInfoHeaderValue? userAgent = context.GetUserAgent();
 
         try
         {
-            PackageResult? result = await this._contentSource.GetFromUpstreamAsync(config: config, path: path, userAgent: userAgent, cancellationToken: cancellationToken);
+            PackageResult? result = await this._contentSource.GetFromUpstreamAsync(config: config, path: pathWithQuery, userAgent: userAgent, cancellationToken: cancellationToken);
 
             if (result is null)
             {
@@ -84,9 +87,16 @@ public sealed class CacheMiddleware : IMiddleware
         }
         catch (Exception exception)
         {
-            this._logger.RequestFailed(host: config.Source, path: path, message: exception.Message, exception: exception);
+            this._logger.RequestFailed(host: config.Source, path: pathWithQuery, message: exception.Message, exception: exception);
             Failed(context: context, result: HttpStatusCode.NotFound);
         }
+    }
+
+    private static string GetPathWithQuery(string? query, string path)
+    {
+        return string.IsNullOrEmpty(query)
+            ? path
+            : path + "?" + query;
     }
 
     private static bool IsPingPath(HttpContext context)
