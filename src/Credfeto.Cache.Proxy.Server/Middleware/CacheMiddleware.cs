@@ -14,6 +14,7 @@ using Credfeto.Cache.Proxy.Server.Storage;
 using Credfeto.Date.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 using Polly.Bulkhead;
 using Polly.Timeout;
 
@@ -132,6 +133,16 @@ public sealed class CacheMiddleware : IMiddleware
 
     private static string GetHost(HttpContext context)
     {
+        if (context.Request.Headers.TryGetValue(key: "X-Forwarded-Host", out StringValues hostNames))
+        {
+            string? host = hostNames.FirstOrDefault();
+
+            if (!string.IsNullOrWhiteSpace(host))
+            {
+                return host.Split(':')[0];
+            }
+        }
+
         return context.Request.Host.Host;
     }
 
