@@ -22,6 +22,7 @@ namespace Credfeto.Cache.Proxy.Server.Middleware;
 
 public sealed class CacheMiddleware : IMiddleware
 {
+    private static readonly PathString PingPath = new("/ping");
     private readonly ServerConfig _config;
     private readonly IContentSource _contentSource;
     private readonly ICurrentTimeSource _currentTimeSource;
@@ -37,6 +38,13 @@ public sealed class CacheMiddleware : IMiddleware
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
+        if (IsPingPath(context))
+        {
+            await next(context);
+
+            return;
+        }
+
         CacheServerConfig? config = this.GetConfig(context);
 
         if (config is null)
@@ -79,6 +87,11 @@ public sealed class CacheMiddleware : IMiddleware
             this._logger.RequestFailed(host: config.Source, path: path, message: exception.Message, exception: exception);
             Failed(context: context, result: HttpStatusCode.NotFound);
         }
+    }
+
+    private static bool IsPingPath(HttpContext context)
+    {
+        return context.Request.Path == PingPath;
     }
 
     private CacheServerConfig? GetConfig(HttpContext context)
