@@ -34,7 +34,9 @@ public sealed class ContentSource : IContentSource
             return null;
         }
 
-        byte[]? data = await this._packageStorage.ReadFileAsync(Path.Combine(path1: config.Target, path2: sourcePath), cancellationToken: cancellationToken);
+        string host = config.HostOnlyTarget();
+
+        byte[]? data = await this._packageStorage.ReadFileAsync(sourceHost: host, Path.Combine(path1: config.Target, path2: sourcePath), cancellationToken: cancellationToken);
 
         return data is null
             ? null
@@ -54,7 +56,8 @@ public sealed class ContentSource : IContentSource
 
         if (cacheSetting is not null && !RequestHasQuery(sourcePath))
         {
-            await this._packageStorage.SaveFileAsync(sourcePath: sourcePath, buffer: data, cancellationToken: cancellationToken);
+            string host = config.HostOnlyTarget();
+            await this._packageStorage.SaveFileAsync(sourceHost: host, sourcePath: sourcePath, buffer: data, cancellationToken: cancellationToken);
         }
 
         return new PackageResult(Data: data, CacheSetting: cacheSetting);

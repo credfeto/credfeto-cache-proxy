@@ -22,9 +22,9 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         this.EnsureDirectoryExists(config.Storage);
     }
 
-    public async ValueTask<byte[]?> ReadFileAsync(string sourcePath, CancellationToken cancellationToken)
+    public async ValueTask<byte[]?> ReadFileAsync(string sourceHost, string sourcePath, CancellationToken cancellationToken)
     {
-        string packagePath = this.BuildPackagePath(sourcePath);
+        string packagePath = this.BuildPackagePath(sourceHost: sourceHost, path: sourcePath);
 
         try
         {
@@ -35,11 +35,7 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         }
         catch (Exception exception)
         {
-            this._logger.FailedToReadFileFromCache(
-                filename: sourcePath,
-                message: exception.Message,
-                exception: exception
-            );
+            this._logger.FailedToReadFileFromCache(filename: sourcePath, message: exception.Message, exception: exception);
 
             return null;
         }
@@ -47,9 +43,9 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         return null;
     }
 
-    public async ValueTask SaveFileAsync(string sourcePath, byte[] buffer, CancellationToken cancellationToken)
+    public async ValueTask SaveFileAsync(string sourceHost, string sourcePath, byte[] buffer, CancellationToken cancellationToken)
     {
-        string packagePath = this.BuildPackagePath(sourcePath);
+        string packagePath = this.BuildPackagePath(sourceHost: sourceHost, path: sourcePath);
 
         // ! Doesn't
         string? dir = Path.GetDirectoryName(packagePath);
@@ -85,8 +81,8 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         }
     }
 
-    private string BuildPackagePath(string path)
+    private string BuildPackagePath(string sourceHost, string path)
     {
-        return Path.Combine(path1: this._config.Storage, path.TrimStart('/'));
+        return Path.Combine(path1: this._config.Storage, path2: sourceHost, path.TrimStart('/'));
     }
 }

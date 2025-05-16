@@ -10,6 +10,8 @@ namespace Credfeto.Cache.Proxy.Storage.FileSystem.Tests;
 
 public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
 {
+    private const string HOST = "example.com";
+
     private readonly IPackageStorage _packageStorage;
 
     public FileSystemPackageStorageTests(ITestOutputHelper output)
@@ -17,10 +19,7 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
     {
         ServerConfig config = new([], Storage: this.TempFolder);
 
-        this._packageStorage = new FileSystemPackageStorage(
-            config: config,
-            this.GetTypedLogger<FileSystemPackageStorage>()
-        );
+        this._packageStorage = new FileSystemPackageStorage(config: config, this.GetTypedLogger<FileSystemPackageStorage>());
     }
 
     [Fact]
@@ -28,10 +27,7 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
     {
         CancellationToken cancellationToken = this.CancellationToken();
 
-        byte[]? result = await this._packageStorage.ReadFileAsync(
-            sourcePath: "doesnotexist",
-            cancellationToken: cancellationToken
-        );
+        byte[]? result = await this._packageStorage.ReadFileAsync(sourceHost: HOST, sourcePath: "doesnotexist", cancellationToken: cancellationToken);
 
         Assert.Null(result);
     }
@@ -41,16 +37,9 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
     {
         CancellationToken cancellationToken = this.CancellationToken();
 
-        await File.WriteAllTextAsync(
-            Path.Combine(path1: this.TempFolder, path2: "file.txt"),
-            contents: "test",
-            cancellationToken: cancellationToken
-        );
+        await File.WriteAllTextAsync(Path.Combine(path1: this.TempFolder, path2: "file.txt"), contents: "test", cancellationToken: cancellationToken);
 
-        byte[]? result = await this._packageStorage.ReadFileAsync(
-            sourcePath: "file.txt",
-            cancellationToken: cancellationToken
-        );
+        byte[]? result = await this._packageStorage.ReadFileAsync(sourceHost: HOST, sourcePath: "file.txt", cancellationToken: cancellationToken);
 
         Assert.NotNull(result);
         Assert.Equal(expected: 4, actual: result.Length);

@@ -4,4 +4,10 @@ using System.Diagnostics;
 namespace Credfeto.Cache.Proxy.Models.Config;
 
 [DebuggerDisplay("Source: {Source} Target: {Target}")]
-public sealed record CacheServerConfig(string Source, string Target, IReadOnlyList<CacheSetting> Settings);
+public sealed record CacheServerConfig(string Source, string Target, IReadOnlyList<CacheSetting> Settings)
+{
+    public string HostOnlyTarget()
+    {
+        return this.Target.Split(':')[0];
+    }
+}
