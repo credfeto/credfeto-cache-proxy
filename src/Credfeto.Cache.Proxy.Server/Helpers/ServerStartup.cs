@@ -95,7 +95,7 @@ internal static class ServerStartup
                .AddSingleton<IPackageStorage, FileSystemPackageStorage>()
                .AddSingleton<IContentDownloader, ContentDownloader>()
                .AddSingleton<IContentSource, ContentSource>()
-               .AddNupkgClient(appConfig)
+               .AddContentClient(appConfig)
                .ConfigureHttpJsonOptions(options => options.SerializerOptions.TypeInfoResolverChain.Insert(index: 0, item: AppJsonContexts.Default));
 
         return builder;

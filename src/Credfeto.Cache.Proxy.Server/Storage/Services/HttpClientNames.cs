@@ -5,13 +5,13 @@ namespace Credfeto.Cache.Proxy.Server.Storage.Services;
 
 public static class HttpClientNames
 {
-    private const string NUGET_PACKAGE = "NugetPackageClient";
+    private const string CLIENT_PREFIX = "ContentClient";
 
     public static Uri GetHttpClientUri(CacheServerConfig config, out string name)
     {
         Uri target = new(config.Target);
 
-        name = NUGET_PACKAGE + "-" + target.DnsSafeHost;
+        name = CLIENT_PREFIX + "-" + target.DnsSafeHost;
 
         return target;
     }
