@@ -8,7 +8,7 @@ internal static partial class CacheMiddlewareLoggingExtensions
     [LoggerMessage(LogLevel.Error, EventId = 1, Message = "Host is not configured: https://{host}")]
     public static partial void NoConfigForHost(this ILogger<CacheMiddleware> logger, string host);
 
-    [LoggerMessage(LogLevel.Information, EventId = 2, Message = "Host is not configured: http://{host}")]
+    [LoggerMessage(LogLevel.Information, EventId = 2, Message = "Using Configured Host Config: http://{host}")]
     public static partial void UsingConfigForHost(this ILogger<CacheMiddleware> logger, string host);
 
     [LoggerMessage(LogLevel.Information, EventId = 3, Message = "Starting fetch: https://{host}{path}")]
