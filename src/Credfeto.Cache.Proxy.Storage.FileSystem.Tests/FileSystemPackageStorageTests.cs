@@ -37,7 +37,7 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
     {
         CancellationToken cancellationToken = this.CancellationToken();
 
-        await File.WriteAllTextAsync(Path.Combine(path1: this.TempFolder, path2: "file.txt"), contents: "test", cancellationToken: cancellationToken);
+        await File.WriteAllTextAsync(Path.Combine(path1: this.TempFolder, path2: HOST, path3: "file.txt"), contents: "test", cancellationToken: cancellationToken);
 
         byte[]? result = await this._packageStorage.ReadFileAsync(sourceHost: HOST, sourcePath: "file.txt", cancellationToken: cancellationToken);
 
