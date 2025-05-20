@@ -13,7 +13,6 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated Microsoft.VisualStudio.Threading.Analyzers to 17.14.15
 - Dependencies - Updated Microsoft.Extensions to 9.0.5
 - Dependencies - Updated Microsoft.Sbom.Targets to 4.0.3
-- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.15.130
 - Dependencies - Updated Serilog to 4.3.0
 - Dependencies - Updated Credfeto.Enumeration to 1.2.87.1134
 - Dependencies - Updated SonarAnalyzer.CSharp to 10.10.0.116381
@@ -21,6 +20,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated Credfeto.Date to 1.1.97.1054
 - Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.75.564
 - Dependencies - Updated Credfeto.Extensions.Linq to 1.0.96.931
+- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.16.137
 ### Removed
 ### Deployment Changes
 
