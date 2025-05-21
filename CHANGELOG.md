@@ -16,11 +16,11 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated Serilog to 4.3.0
 - Dependencies - Updated SonarAnalyzer.CSharp to 10.10.0.116381
 - Dependencies - Updated Microsoft.NET.Test.Sdk to 17.14.0
-- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.16.137
 - Dependencies - Updated Credfeto.Enumeration to 1.2.88.1149
 - Dependencies - Updated Credfeto.Date to 1.1.98.1063
 - Dependencies - Updated Credfeto.Extensions.Linq to 1.0.97.938
 - Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.76.571
+- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.17.144
 ### Removed
 ### Deployment Changes
 
