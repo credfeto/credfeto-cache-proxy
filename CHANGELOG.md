@@ -9,17 +9,20 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
-- Dependencies - Updated Credfeto.Enumeration to 1.2.90.1157
-- Dependencies - Updated Credfeto.Date to 1.1.100.1069
-- Dependencies - Updated Credfeto.Extensions.Linq to 1.0.99.947
-- Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.78.579
-- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.19.150
 ### Removed
 ### Deployment Changes
 
 <!--
 Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
 -->
+## [0.0.3] - 2025-05-24
+### Changed
+- Dependencies - Updated Credfeto.Enumeration to 1.2.90.1157
+- Dependencies - Updated Credfeto.Date to 1.1.100.1069
+- Dependencies - Updated Credfeto.Extensions.Linq to 1.0.99.947
+- Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.78.579
+- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.19.150
+
 ## [0.0.2] - 2025-05-23
 ### Changed
 - Dependencies - Updated Credfeto.Enumeration to 1.2.89.1151
