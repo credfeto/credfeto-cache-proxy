@@ -10,6 +10,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Fixed
 ### Changed
 - Dependencies - Updated Microsoft.NET.Test.Sdk to 17.14.1
+- Dependencies - Updated Credfeto.Enumeration to 1.2.102.1190
 ### Removed
 ### Deployment Changes
 
