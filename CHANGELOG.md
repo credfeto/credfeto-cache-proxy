@@ -10,6 +10,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Fixed
 ### Changed
 - Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.95.630
+- Dependencies - Updated Credfeto.Date to 1.1.117.1120
 ### Removed
 ### Deployment Changes
 
