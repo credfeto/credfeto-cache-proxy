@@ -14,6 +14,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.40.218
 - Dependencies - Updated Credfeto.Extensions.Linq to 1.0.120.1016
 - SDK - Updated DotNet SDK to 9.0.301
+- Dependencies - Updated Credfeto.Enumeration to 1.2.112.1229
 ### Removed
 ### Deployment Changes
 
