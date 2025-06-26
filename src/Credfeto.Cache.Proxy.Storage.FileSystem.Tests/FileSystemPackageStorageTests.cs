@@ -2,7 +2,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Credfeto.Cache.Proxy.Models.Config;
-using Credfeto.Cache.Storage.Interfaces;
+using Credfeto.Cache.Proxy.Storage.Interfaces;
 using FunFair.Test.Common;
 using Xunit;
 

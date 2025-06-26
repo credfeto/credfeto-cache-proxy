@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Credfeto.Cache.Storage.Interfaces;
+namespace Credfeto.Cache.Proxy.Storage.Interfaces;
 
 public interface IPackageStorage
 {

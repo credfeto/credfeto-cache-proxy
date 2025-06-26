@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Credfeto.Cache.Proxy.Models.Config;
 using Credfeto.Cache.Proxy.Storage.FileSystem.LoggerExtensions;
-using Credfeto.Cache.Storage.Interfaces;
+using Credfeto.Cache.Proxy.Storage.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Credfeto.Cache.Proxy.Storage.FileSystem;

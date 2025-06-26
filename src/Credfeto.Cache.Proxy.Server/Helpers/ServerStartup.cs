@@ -9,7 +9,7 @@ using Credfeto.Cache.Proxy.Server.Middleware;
 using Credfeto.Cache.Proxy.Server.Storage;
 using Credfeto.Cache.Proxy.Server.Storage.Services;
 using Credfeto.Cache.Proxy.Storage.FileSystem;
-using Credfeto.Cache.Storage.Interfaces;
+using Credfeto.Cache.Proxy.Storage.Interfaces;
 using Credfeto.Date;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

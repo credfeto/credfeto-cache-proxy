@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Credfeto.Cache.Proxy.Models.Config;
-using Credfeto.Cache.Storage.Interfaces;
+using Credfeto.Cache.Proxy.Storage.Interfaces;
 
 namespace Credfeto.Cache.Proxy.Server.Storage.Services;
 
