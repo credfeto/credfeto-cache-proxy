@@ -64,6 +64,8 @@ public sealed class CacheMiddleware : IMiddleware
         CancellationToken cancellationToken = context.RequestAborted;
         ProductInfoHeaderValue? userAgent = context.GetUserAgent();
 
+        context.Response.Headers.KeepAlive = "60";
+
         try
         {
             PackageResult? result = await this._contentSource.GetFromUpstreamAsync(config: config, path: pathWithQuery, userAgent: userAgent, cancellationToken: cancellationToken);
