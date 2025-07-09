@@ -22,13 +22,27 @@ public sealed class ContentSource : IContentSource
         this._contentDownloader = contentDownloader;
     }
 
-    public async ValueTask<PackageResult?> GetFromUpstreamAsync(CacheServerConfig config, string path, ProductInfoHeaderValue? userAgent, CancellationToken cancellationToken)
+    public async ValueTask<PackageResult?> GetFromUpstreamAsync(
+        CacheServerConfig config,
+        string path,
+        ProductInfoHeaderValue? userAgent,
+        CancellationToken cancellationToken
+    )
     {
-        return await this.TryToGetFromCacheAsync(config: config, sourcePath: path, cancellationToken: cancellationToken) ??
-               await this.GetFromUpstream2Async(config: config, sourcePath: path, userAgent: userAgent, cancellationToken: cancellationToken);
+        return await this.TryToGetFromCacheAsync(config: config, sourcePath: path, cancellationToken: cancellationToken)
+            ?? await this.GetFromUpstream2Async(
+                config: config,
+                sourcePath: path,
+                userAgent: userAgent,
+                cancellationToken: cancellationToken
+            );
     }
 
-    private async ValueTask<PackageResult?> TryToGetFromCacheAsync(CacheServerConfig config, string sourcePath, CancellationToken cancellationToken)
+    private async ValueTask<PackageResult?> TryToGetFromCacheAsync(
+        CacheServerConfig config,
+        string sourcePath,
+        CancellationToken cancellationToken
+    )
     {
         if (RequestHasQuery(sourcePath))
         {
@@ -37,11 +51,13 @@ public sealed class ContentSource : IContentSource
 
         string host = config.HostOnlyTarget();
 
-        byte[]? data = await this._packageStorage.ReadFileAsync(sourceHost: host, Path.Combine(path1: config.Target, path2: sourcePath), cancellationToken: cancellationToken);
+        byte[]? data = await this._packageStorage.ReadFileAsync(
+            sourceHost: host,
+            Path.Combine(path1: config.Target, path2: sourcePath),
+            cancellationToken: cancellationToken
+        );
 
-        return data is null
-            ? null
-            : new(Data: data, ShouldCache(config: config, sourcePath: sourcePath));
+        return data is null ? null : new(Data: data, ShouldCache(config: config, sourcePath: sourcePath));
     }
 
     private static bool RequestHasQuery(string sourcePath)
@@ -49,16 +65,31 @@ public sealed class ContentSource : IContentSource
         return sourcePath.Contains(value: '?', comparisonType: StringComparison.Ordinal);
     }
 
-    private async ValueTask<PackageResult?> GetFromUpstream2Async(CacheServerConfig config, string sourcePath, ProductInfoHeaderValue? userAgent, CancellationToken cancellationToken)
+    private async ValueTask<PackageResult?> GetFromUpstream2Async(
+        CacheServerConfig config,
+        string sourcePath,
+        ProductInfoHeaderValue? userAgent,
+        CancellationToken cancellationToken
+    )
     {
-        byte[] data = await this._contentDownloader.ReadUpstreamAsync(config: config, path: sourcePath, userAgent: userAgent, cancellationToken: cancellationToken);
+        byte[] data = await this._contentDownloader.ReadUpstreamAsync(
+            config: config,
+            path: sourcePath,
+            userAgent: userAgent,
+            cancellationToken: cancellationToken
+        );
 
         CacheSetting? cacheSetting = ShouldCache(config: config, sourcePath: sourcePath);
 
         if (cacheSetting is not null && !RequestHasQuery(sourcePath))
         {
             string host = config.HostOnlyTarget();
-            await this._packageStorage.SaveFileAsync(sourceHost: host, sourcePath: sourcePath, buffer: data, cancellationToken: DoNotCancelEarly);
+            await this._packageStorage.SaveFileAsync(
+                sourceHost: host,
+                sourcePath: sourcePath,
+                buffer: data,
+                cancellationToken: DoNotCancelEarly
+            );
         }
 
         return new PackageResult(Data: data, CacheSetting: cacheSetting);
@@ -71,9 +102,14 @@ public sealed class ContentSource : IContentSource
 
     private static bool IsMatchingPath(CacheSetting setting, string sourcePath)
     {
-        return Regex.IsMatch(input: sourcePath,
-                             pattern: setting.Match,
-                             RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.NonBacktracking | RegexOptions.Singleline,
-                             TimeSpan.FromSeconds(0.5));
+        return Regex.IsMatch(
+            input: sourcePath,
+            pattern: setting.Match,
+            RegexOptions.Compiled
+                | RegexOptions.ExplicitCapture
+                | RegexOptions.NonBacktracking
+                | RegexOptions.Singleline,
+            TimeSpan.FromSeconds(0.5)
+        );
     }
 }
