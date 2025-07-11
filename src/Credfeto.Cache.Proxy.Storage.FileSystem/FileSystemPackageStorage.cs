@@ -6,6 +6,7 @@ using Credfeto.Cache.Proxy.Models.Config;
 using Credfeto.Cache.Proxy.Storage.FileSystem.LoggerExtensions;
 using Credfeto.Cache.Proxy.Storage.Interfaces;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Credfeto.Cache.Proxy.Storage.FileSystem;
 
@@ -14,19 +15,15 @@ public sealed class FileSystemPackageStorage : IPackageStorage
     private readonly ServerConfig _config;
     private readonly ILogger<FileSystemPackageStorage> _logger;
 
-    public FileSystemPackageStorage(ServerConfig config, ILogger<FileSystemPackageStorage> logger)
+    public FileSystemPackageStorage(IOptions<ServerConfig> config, ILogger<FileSystemPackageStorage> logger)
     {
-        this._config = config;
+        this._config = config.Value;
         this._logger = logger;
 
-        this.EnsureDirectoryExists(config.Storage);
+        this.EnsureDirectoryExists(this._config.Storage);
     }
 
-    public async ValueTask<byte[]?> ReadFileAsync(
-        string sourceHost,
-        string sourcePath,
-        CancellationToken cancellationToken
-    )
+    public async ValueTask<byte[]?> ReadFileAsync(string sourceHost, string sourcePath, CancellationToken cancellationToken)
     {
         string packagePath = this.BuildPackagePath(sourceHost: sourceHost, path: sourcePath);
 
@@ -46,11 +43,7 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         }
         catch (Exception exception)
         {
-            this._logger.FailedToReadFileFromCache(
-                filename: sourcePath,
-                message: exception.Message,
-                exception: exception
-            );
+            this._logger.FailedToReadFileFromCache(filename: sourcePath, message: exception.Message, exception: exception);
 
             return null;
         }
@@ -58,12 +51,7 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         return null;
     }
 
-    public async ValueTask SaveFileAsync(
-        string sourceHost,
-        string sourcePath,
-        byte[] buffer,
-        CancellationToken cancellationToken
-    )
+    public async ValueTask SaveFileAsync(string sourceHost, string sourcePath, byte[] buffer, CancellationToken cancellationToken)
     {
         string packagePath = this.BuildPackagePath(sourceHost: sourceHost, path: sourcePath);
 
