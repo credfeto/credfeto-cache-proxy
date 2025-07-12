@@ -24,7 +24,11 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         this.EnsureDirectoryExists(this._config.Storage);
     }
 
-    public async ValueTask<byte[]?> ReadFileAsync(string sourceHost, string sourcePath, CancellationToken cancellationToken)
+    public async ValueTask<byte[]?> ReadFileAsync(
+        string sourceHost,
+        string sourcePath,
+        CancellationToken cancellationToken
+    )
     {
         if (!this.BuildPackagePath(sourceHost: sourceHost, path: sourcePath, out string? packagePath, out string? dir))
         {
@@ -40,7 +44,11 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         }
         catch (Exception exception)
         {
-            this._logger.FailedToReadFileFromCache(filename: sourcePath, message: exception.Message, exception: exception);
+            this._logger.FailedToReadFileFromCache(
+                filename: sourcePath,
+                message: exception.Message,
+                exception: exception
+            );
 
             return null;
         }
@@ -48,7 +56,12 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         return null;
     }
 
-    public async ValueTask SaveFileAsync(string sourceHost, string sourcePath, byte[] buffer, CancellationToken cancellationToken)
+    public async ValueTask SaveFileAsync(
+        string sourceHost,
+        string sourcePath,
+        byte[] buffer,
+        CancellationToken cancellationToken
+    )
     {
         if (!this.BuildPackagePath(sourceHost: sourceHost, path: sourcePath, out string? packagePath, out string? dir))
         {
@@ -81,7 +94,12 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         }
     }
 
-    private bool BuildPackagePath(string sourceHost, string path, [NotNullWhen(true)] out string? filename, [NotNullWhen(true)] out string? dir)
+    private bool BuildPackagePath(
+        string sourceHost,
+        string path,
+        [NotNullWhen(true)] out string? filename,
+        [NotNullWhen(true)] out string? dir
+    )
     {
         string f = Path.Combine(path1: this._config.Storage, path2: sourceHost, path.TrimStart('/'));
 
