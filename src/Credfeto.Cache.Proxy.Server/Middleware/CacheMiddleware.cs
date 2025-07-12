@@ -14,6 +14,7 @@ using Credfeto.Cache.Proxy.Server.Storage;
 using Credfeto.Date.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using Polly.Bulkhead;
 using Polly.Timeout;
@@ -28,9 +29,9 @@ public sealed class CacheMiddleware : IMiddleware
     private readonly ICurrentTimeSource _currentTimeSource;
     private readonly ILogger<CacheMiddleware> _logger;
 
-    public CacheMiddleware(ServerConfig config, IContentSource contentSource, ICurrentTimeSource currentTimeSource, ILogger<CacheMiddleware> logger)
+    public CacheMiddleware(IOptions<ServerConfig> config, IContentSource contentSource, ICurrentTimeSource currentTimeSource, ILogger<CacheMiddleware> logger)
     {
-        this._config = config;
+        this._config = config.Value;
         this._contentSource = contentSource;
         this._currentTimeSource = currentTimeSource;
         this._logger = logger;

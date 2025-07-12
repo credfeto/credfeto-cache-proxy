@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Credfeto.Cache.Proxy.Models.Config;
 using Credfeto.Cache.Proxy.Storage.FileSystem.LoggerExtensions;
 using Credfeto.Cache.Proxy.Storage.Interfaces;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Credfeto.Cache.Proxy.Storage.FileSystem;
 
@@ -14,25 +16,17 @@ public sealed class FileSystemPackageStorage : IPackageStorage
     private readonly ServerConfig _config;
     private readonly ILogger<FileSystemPackageStorage> _logger;
 
-    public FileSystemPackageStorage(ServerConfig config, ILogger<FileSystemPackageStorage> logger)
+    public FileSystemPackageStorage(IOptions<ServerConfig> config, ILogger<FileSystemPackageStorage> logger)
     {
-        this._config = config;
+        this._config = config.Value;
         this._logger = logger;
 
-        this.EnsureDirectoryExists(config.Storage);
+        this.EnsureDirectoryExists(this._config.Storage);
     }
 
-    public async ValueTask<byte[]?> ReadFileAsync(
-        string sourceHost,
-        string sourcePath,
-        CancellationToken cancellationToken
-    )
+    public async ValueTask<byte[]?> ReadFileAsync(string sourceHost, string sourcePath, CancellationToken cancellationToken)
     {
-        string packagePath = this.BuildPackagePath(sourceHost: sourceHost, path: sourcePath);
-
-        string? dir = Path.GetDirectoryName(packagePath);
-
-        if (string.IsNullOrEmpty(dir))
+        if (!this.BuildPackagePath(sourceHost: sourceHost, path: sourcePath, out string? packagePath, out string? dir))
         {
             return null;
         }
@@ -46,11 +40,7 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         }
         catch (Exception exception)
         {
-            this._logger.FailedToReadFileFromCache(
-                filename: sourcePath,
-                message: exception.Message,
-                exception: exception
-            );
+            this._logger.FailedToReadFileFromCache(filename: sourcePath, message: exception.Message, exception: exception);
 
             return null;
         }
@@ -58,19 +48,9 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         return null;
     }
 
-    public async ValueTask SaveFileAsync(
-        string sourceHost,
-        string sourcePath,
-        byte[] buffer,
-        CancellationToken cancellationToken
-    )
+    public async ValueTask SaveFileAsync(string sourceHost, string sourcePath, byte[] buffer, CancellationToken cancellationToken)
     {
-        string packagePath = this.BuildPackagePath(sourceHost: sourceHost, path: sourcePath);
-
-        // ! Doesn't
-        string? dir = Path.GetDirectoryName(packagePath);
-
-        if (string.IsNullOrEmpty(dir))
+        if (!this.BuildPackagePath(sourceHost: sourceHost, path: sourcePath, out string? packagePath, out string? dir))
         {
             return;
         }
@@ -101,8 +81,23 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         }
     }
 
-    private string BuildPackagePath(string sourceHost, string path)
+    private bool BuildPackagePath(string sourceHost, string path, [NotNullWhen(true)] out string? filename, [NotNullWhen(true)] out string? dir)
     {
-        return Path.Combine(path1: this._config.Storage, path2: sourceHost, path.TrimStart('/'));
+        string f = Path.Combine(path1: this._config.Storage, path2: sourceHost, path.TrimStart('/'));
+
+        string? d = Path.GetDirectoryName(f);
+
+        if (string.IsNullOrEmpty(d))
+        {
+            filename = null;
+            dir = null;
+
+            return false;
+        }
+
+        filename = f;
+        dir = d;
+
+        return true;
     }
 }
