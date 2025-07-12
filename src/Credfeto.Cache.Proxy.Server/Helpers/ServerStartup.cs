@@ -97,6 +97,7 @@ internal static class ServerStartup
 
     private static WebApplicationBuilder ConfigureSettings(this WebApplicationBuilder builder, string configPath)
     {
+        builder.Configuration.Sources.Clear();
         builder
             .Configuration.SetBasePath(configPath)
             .AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: false)
