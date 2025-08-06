@@ -9,7 +9,6 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
-- Dependencies - Updated Microsoft.Extensions to 9.0.7
 - SDK - Updated DotNet SDK to 9.0.303
 - Dependencies - Updated Credfeto.Enumeration to 1.2.121.1337
 - Dependencies - Updated FunFair.CodeAnalysis to 7.1.13.1330
@@ -23,6 +22,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated xunit.v3 to 3.0.0
 - Dependencies - Updated Credfeto.Date to 1.1.131.1251
 - Dependencies - Updated FunFair.Test.Common to 6.1.280.1580
+- Dependencies - Updated Microsoft.Extensions to 9.0.8
 ### Removed
 ### Deployment Changes
 
