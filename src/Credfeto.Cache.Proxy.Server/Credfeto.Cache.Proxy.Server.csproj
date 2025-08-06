@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <AnalysisLevel>latest</AnalysisLevel>
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
@@ -75,10 +75,9 @@
   <ItemGroup>
     <PackageReference Include="Credfeto.Date" Version="1.1.130.1175" />
     <PackageReference Include="Credfeto.Docker.HealthCheck.Http.Client" Version="0.0.48.254" />
-    <PackageReference Include="Credfeto.Extensions.Linq" Version="1.0.129.1055" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="9.0.7" />
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="9.0.7" />
-    <PackageReference Include="NonBlocking" Version="2.1.2"/>
+    <PackageReference Include="NonBlocking" Version="2.1.2" />
     <PackageReference Include="Serilog" Version="4.3.0" />
     <PackageReference Include="Serilog.Enrichers.Demystifier" Version="1.0.3" />
     <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
