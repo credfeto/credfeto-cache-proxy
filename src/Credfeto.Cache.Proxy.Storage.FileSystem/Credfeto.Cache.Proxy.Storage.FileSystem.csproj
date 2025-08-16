@@ -6,7 +6,6 @@
     <Features>strict;flow-analysis</Features>
     <GenerateNeutralResourcesLanguageAttribute>true</GenerateNeutralResourcesLanguageAttribute>
     <ImplicitUsings>disable</ImplicitUsings>
-    <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
     <IsPackable>false</IsPackable>
     <GenerateSBOM>true</GenerateSBOM>
     <IsPublishable>false</IsPublishable>
@@ -29,7 +28,6 @@
     <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
     <OptimizationPreference>speed</OptimizationPreference>
     <IsTrimmable>true</IsTrimmable>
-    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
     <TieredPGO>true</TieredPGO>
     <UseSystemResourceKeys>true</UseSystemResourceKeys>
     <IlcOptimizationPreference>Size</IlcOptimizationPreference>
@@ -43,6 +41,7 @@
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <EnforceExtendedAnalyzerRules>false</EnforceExtendedAnalyzerRules>
     <NeutralLanguage>en</NeutralLanguage>
+    <WarnOnPackingNonPackableProject>false</WarnOnPackingNonPackableProject>
   </PropertyGroup>
   <ItemGroup>
     <!-- error NU1903: Warning As Error: Package 'System.Private.Uri' 4.3.0 has a known high severity vulnerability -->

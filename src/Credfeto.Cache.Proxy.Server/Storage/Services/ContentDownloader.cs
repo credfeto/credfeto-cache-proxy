@@ -92,7 +92,7 @@ public sealed class ContentDownloader : IContentDownloader
         return semaphore;
     }
 
-    private static Uri MakeUri(Uri baseUri, PathString path)
+    private static Uri MakeUri(Uri baseUri, in PathString path)
     {
         UriBuilder builder = new(baseUri) { Path = path.ToString() };
 
