@@ -94,9 +94,17 @@ public sealed class ContentDownloader : IContentDownloader
 
     private static Uri MakeUri(Uri baseUri, in PathString path)
     {
-        UriBuilder builder = new(baseUri) { Path = path.ToString() };
+        string urlBase = baseUri.ToString();
 
-        return builder.Uri;
+        if (urlBase.EndsWith('/'))
+        {
+            urlBase = urlBase[..^1];
+        }
+
+        string full = urlBase + path.Value;
+
+
+        return  new(full, UriKind.Absolute);
     }
 
     [DoesNotReturn]

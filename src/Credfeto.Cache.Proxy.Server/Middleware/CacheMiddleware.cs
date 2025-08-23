@@ -55,7 +55,7 @@ public sealed class CacheMiddleware : IMiddleware
         }
 
         string path = GetPath(context);
-        string? query = context.Request.QueryString.Value;
+        IQueryCollection query = context.Request.Query;
 
         string pathWithQuery = GetPathWithQuery(query: query, path: path);
 
@@ -94,11 +94,14 @@ public sealed class CacheMiddleware : IMiddleware
         }
     }
 
-    private static string GetPathWithQuery(string? query, string path)
+    private static string GetPathWithQuery(IQueryCollection query, string path)
     {
-        return string.IsNullOrEmpty(query)
-            ? path
-            : path + "?" + query;
+        if (query.Count == 0)
+        {
+            return path;
+        }
+
+        return path + "?" + string.Join('&', query.Select( q =>  $"{q.Key}={q.Value}"));
     }
 
 
