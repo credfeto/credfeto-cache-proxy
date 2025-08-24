@@ -103,8 +103,7 @@ public sealed class ContentDownloader : IContentDownloader
 
         string full = urlBase + path.Value;
 
-
-        return  new(full, UriKind.Absolute);
+        return new(full, UriKind.Absolute);
     }
 
     [DoesNotReturn]
