@@ -4,12 +4,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Credfeto.Cache.Proxy.Server.Storage.Services.LoggerExtensions;
 
-internal static partial class NupkgSourceLoggingExtensions
+internal static partial class ContentSourceLoggingExtensions
 {
     [LoggerMessage(
         LogLevel.Error,
         EventId = 1,
-        Message = "Failed to retrieve NUPKG from {upstream} Received Http {statusCode}"
+        Message = "Failed to retrieve file from {upstream} Received Http {statusCode}"
     )]
     public static partial void UpstreamPackageFailed(
         this ILogger<ContentSource> logger,
@@ -20,7 +20,7 @@ internal static partial class NupkgSourceLoggingExtensions
     [LoggerMessage(
         LogLevel.Information,
         EventId = 1,
-        Message = "Retrieved Cached NUPKG from {upstream} Length: {length}"
+        Message = "Retrieved Cached fileW from {upstream} Length: {length}"
     )]
     public static partial void CachedPackage(this ILogger<ContentSource> logger, Uri upstream, long length);
 }

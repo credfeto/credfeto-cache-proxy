@@ -9,7 +9,7 @@ internal static partial class PackageDownloaderLoggingExtensions
     [LoggerMessage(
         LogLevel.Information,
         EventId = 2,
-        Message = "Retrieved NUPKG from {upstream} Received Http {statusCode} Length: {length}"
+        Message = "Retrieved file from {upstream} Received Http {statusCode} Length: {length}"
     )]
     public static partial void UpstreamPackageOk(
         this ILogger<ContentDownloader> logger,
