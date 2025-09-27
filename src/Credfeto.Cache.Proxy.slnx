@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/Config/">
+    <File Path="../CHANGELOG.md" />
+    <File Path="../Dockerfile" />
+    <File Path="../README.md" />
+    <File Path="CodeAnalysis.ruleset" />
+    <File Path="global.json" />
+    <File Path="publish" />
+  </Folder>
+  <Project Path="Credfeto.Cache.Proxy.Models/Credfeto.Cache.Proxy.Models.csproj" />
+  <Project Path="Credfeto.Cache.Proxy.Server/Credfeto.Cache.Proxy.Server.csproj" />
+  <Project Path="Credfeto.Cache.Proxy.Storage.FileSystem.Tests/Credfeto.Cache.Proxy.Storage.FileSystem.Tests.csproj" />
+  <Project Path="Credfeto.Cache.Proxy.Storage.FileSystem/Credfeto.Cache.Proxy.Storage.FileSystem.csproj" />
+  <Project Path="Credfeto.Cache.Proxy.Storage.Interfaces/Credfeto.Cache.Proxy.Storage.Interfaces.csproj" />
+</Solution>
