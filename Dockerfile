@@ -6,6 +6,9 @@ WORKDIR /usr/src/app
 COPY Credfeto.Cache.Proxy.Server .
 COPY appsettings.json .
 
+CMD mkdir /data && \
+    chmod -R 1654:1654 /data
+    
 EXPOSE 8080
 ENTRYPOINT [ "/usr/src/app/Credfeto.Cache.Proxy.Server" ]
  
