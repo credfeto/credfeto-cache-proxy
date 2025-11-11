@@ -137,7 +137,7 @@ public sealed class CacheMiddleware : IMiddleware
                                                .AddSeconds(63072000)
                                                .ToString(format: "ddd, dd MMM yyyy HH:mm:ss 'GMT'", formatProvider: CultureInfo.InvariantCulture);
 
-        await using (MemoryStream stream = new(buffer: data.Data, writable: false))
+        await using (Stream stream = data.Data)
         {
             await stream.CopyToAsync(destination: context.Response.Body, cancellationToken: cancellationToken);
         }

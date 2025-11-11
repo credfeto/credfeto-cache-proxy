@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using Credfeto.Cache.Proxy.Models.Config;
 
 namespace Credfeto.Cache.Proxy.Server.Storage;
@@ -10,4 +11,4 @@ namespace Credfeto.Cache.Proxy.Server.Storage;
     Justification = "Won't work here"
 )]
 [DebuggerDisplay("Length: {Data.Length} bytes")]
-public readonly record struct PackageResult(byte[] Data, CacheSetting? CacheSetting);
+public readonly record struct PackageResult(Stream Data, CacheSetting? CacheSetting);

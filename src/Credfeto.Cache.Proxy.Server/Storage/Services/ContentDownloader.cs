@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -27,7 +28,7 @@ public sealed class ContentDownloader : IContentDownloader
         this._logger = logger;
     }
 
-    public async ValueTask<byte[]> ReadUpstreamAsync(
+    public async ValueTask<Stream> ReadUpstreamAsync(
         CacheServerConfig config,
         PathString path,
         ProductInfoHeaderValue? userAgent,
@@ -50,12 +51,12 @@ public sealed class ContentDownloader : IContentDownloader
             {
                 if (result.IsSuccessStatusCode)
                 {
-                    byte[] bytes = await result.Content.ReadAsByteArrayAsync(cancellationToken: DoNotCancelEarly);
+                    Stream bytes = await result.Content.ReadAsStreamAsync(cancellationToken: DoNotCancelEarly);
 
                     this._logger.UpstreamPackageOk(
                         upstream: requestUri,
                         statusCode: result.StatusCode,
-                        length: bytes.Length
+                        length: (int)bytes.Length
                     );
 
                     return bytes;
@@ -107,7 +108,7 @@ public sealed class ContentDownloader : IContentDownloader
     }
 
     [DoesNotReturn]
-    private static byte[] Failed(Uri requestUri, HttpStatusCode resultStatusCode)
+    private static Stream Failed(Uri requestUri, HttpStatusCode resultStatusCode)
     {
         throw new HttpRequestException(
             $"Failed to download {requestUri}: {resultStatusCode.GetName()}",

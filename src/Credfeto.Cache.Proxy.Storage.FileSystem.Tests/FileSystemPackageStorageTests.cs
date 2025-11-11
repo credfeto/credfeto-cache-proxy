@@ -34,14 +34,12 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
     }
 
     [Fact]
-    public async Task FileDoesNotExistAsync()
+    public void FileDoesNotExist()
     {
-        CancellationToken cancellationToken = this.CancellationToken();
 
-        byte[]? result = await this._packageStorage.ReadFileAsync(
+        Stream? result = this._packageStorage.ReadFile(
             sourceHost: HOST,
-            sourcePath: "doesnotexist",
-            cancellationToken: cancellationToken
+            sourcePath: "doesnotexist"
         );
 
         Assert.Null(result);
@@ -58,10 +56,9 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
             cancellationToken: cancellationToken
         );
 
-        byte[]? result = await this._packageStorage.ReadFileAsync(
+        Stream? result =  this._packageStorage.ReadFile(
             sourceHost: HOST,
-            sourcePath: "file.txt",
-            cancellationToken: cancellationToken
+            sourcePath: "file.txt"
         );
 
         Assert.NotNull(result);
@@ -73,10 +70,9 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
     {
         CancellationToken cancellationToken = this.CancellationToken();
 
-        byte[]? resultBefore = await this._packageStorage.ReadFileAsync(
+        Stream? resultBefore = this._packageStorage.ReadFile(
             sourceHost: HOST,
-            sourcePath: "file.txt",
-            cancellationToken: cancellationToken
+            sourcePath: "file.txt"
         );
 
         Assert.Null(resultBefore);
@@ -84,14 +80,13 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
         await this._packageStorage.SaveFileAsync(
             sourceHost: HOST,
             sourcePath: "file.txt",
-            "test"u8.ToArray(),
+            new MemoryStream("test"u8.ToArray(), false),
             cancellationToken: cancellationToken
         );
 
-        byte[]? resultAfter = await this._packageStorage.ReadFileAsync(
+        Stream? resultAfter = this._packageStorage.ReadFile(
             sourceHost: HOST,
-            sourcePath: "file.txt",
-            cancellationToken: cancellationToken
+            sourcePath: "file.txt"
         );
 
         Assert.NotNull(resultAfter);

@@ -29,7 +29,8 @@ public sealed class ContentSource : IContentSource
         CancellationToken cancellationToken
     )
     {
-        return await this.TryToGetFromCacheAsync(config: config, sourcePath: path, cancellationToken: cancellationToken)
+
+        return  this.TryToGetFromCache(config: config, sourcePath: path)
             ?? await this.GetFromUpstream2Async(
                 config: config,
                 sourcePath: path,
@@ -38,10 +39,9 @@ public sealed class ContentSource : IContentSource
             );
     }
 
-    private async ValueTask<PackageResult?> TryToGetFromCacheAsync(
+    private PackageResult? TryToGetFromCache(
         CacheServerConfig config,
-        string sourcePath,
-        CancellationToken cancellationToken
+        string sourcePath
     )
     {
         if (RequestHasQuery(sourcePath))
@@ -51,11 +51,7 @@ public sealed class ContentSource : IContentSource
 
         string host = config.HostOnlyTarget();
 
-        byte[]? data = await this._packageStorage.ReadFileAsync(
-            sourceHost: host,
-            Path.Combine(path1: config.Target, path2: sourcePath),
-            cancellationToken: cancellationToken
-        );
+        Stream? data = this._packageStorage.ReadFile(sourceHost: host, Path.Combine(path1: config.Target, path2: sourcePath));
 
         return data is null ? null : new(Data: data, ShouldCache(config: config, sourcePath: sourcePath));
     }
@@ -72,7 +68,7 @@ public sealed class ContentSource : IContentSource
         CancellationToken cancellationToken
     )
     {
-        byte[] data = await this._contentDownloader.ReadUpstreamAsync(
+        Stream data = await this._contentDownloader.ReadUpstreamAsync(
             config: config,
             path: sourcePath,
             userAgent: userAgent,
@@ -90,6 +86,10 @@ public sealed class ContentSource : IContentSource
                 buffer: data,
                 cancellationToken: DoNotCancelEarly
             );
+
+            Stream? stream = this._packageStorage.ReadFile(host, sourcePath);
+
+            return stream is null ? null : new PackageResult(Data: stream, CacheSetting: cacheSetting);
         }
 
         return new PackageResult(Data: data, CacheSetting: cacheSetting);

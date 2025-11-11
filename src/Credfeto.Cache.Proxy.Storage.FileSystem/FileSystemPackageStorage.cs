@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
@@ -24,10 +25,9 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         this.EnsureDirectoryExists(this._config.Storage);
     }
 
-    public async ValueTask<byte[]?> ReadFileAsync(
+    public Stream? ReadFile(
         string sourceHost,
-        string sourcePath,
-        CancellationToken cancellationToken
+        string sourcePath
     )
     {
         if (!this.BuildPackagePath(sourceHost: sourceHost, path: sourcePath, out string? packagePath, out string? dir))
@@ -39,7 +39,7 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         {
             if (Directory.Exists(dir) && File.Exists(packagePath))
             {
-                return await File.ReadAllBytesAsync(path: packagePath, cancellationToken: cancellationToken);
+                return File.OpenRead(path: packagePath);
             }
         }
         catch (Exception exception)
@@ -59,7 +59,7 @@ public sealed class FileSystemPackageStorage : IPackageStorage
     public async ValueTask SaveFileAsync(
         string sourceHost,
         string sourcePath,
-        byte[] buffer,
+        Stream buffer,
         CancellationToken cancellationToken
     )
     {
@@ -68,14 +68,46 @@ public sealed class FileSystemPackageStorage : IPackageStorage
             return;
         }
 
+        string tmpPath = string.Join(".",
+                                     packagePath,
+                                     Guid.NewGuid()
+                                         .ToString(),
+                                     "tmp");
+
         try
         {
             this.EnsureDirectoryExists(dir);
-            await File.WriteAllBytesAsync(path: packagePath, bytes: buffer, cancellationToken: cancellationToken);
+
+            await using (FileStream stream = File.OpenWrite(tmpPath))
+            {
+                await buffer.CopyToAsync(stream, cancellationToken);
+            }
+
+            DeleteFile(packagePath);
+            File.Move(tmpPath, packagePath);
         }
         catch (Exception exception)
         {
             this._logger.SaveFailed(filename: packagePath, message: exception.Message, exception: exception);
+
+            DeleteFile(tmpPath);
+        }
+    }
+
+    private static void DeleteFile(string fileName)
+    {
+        if (!File.Exists(fileName))
+        {
+            return;
+        }
+
+        try
+        {
+            File.Delete(fileName);
+        }
+        catch (Exception exception)
+        {
+            Debug.Write(exception.Message);
         }
     }
 
