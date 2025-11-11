@@ -13,6 +13,7 @@ public interface IContentDownloader
         CacheServerConfig config,
         PathString path,
         ProductInfoHeaderValue? userAgent,
+        bool cache,
         CancellationToken cancellationToken
     );
 }

@@ -24,3 +24,8 @@ Accept: application/json
 
 GET {{credfeto_proxy_HostAddress}}/rpc?arg=afetch-git&type=info&v=5
 Accept: application/json
+
+###
+
+GET {{credfeto_proxy_HostAddress}}/dotnet/Sdk/8.0.416/dotnet-sdk-8.0.416-linux-x64.tar.gz
+Accept: application/json

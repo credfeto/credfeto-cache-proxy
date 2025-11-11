@@ -12,7 +12,6 @@ namespace Credfeto.Cache.Proxy.Server.Storage.Services;
 
 public sealed class ContentSource : IContentSource
 {
-    private static readonly CancellationToken DoNotCancelEarly = CancellationToken.None;
     private readonly IContentDownloader _contentDownloader;
     private readonly IPackageStorage _packageStorage;
 
@@ -68,29 +67,14 @@ public sealed class ContentSource : IContentSource
         CancellationToken cancellationToken
     )
     {
+        CacheSetting? cacheSetting = ShouldCache(config: config, sourcePath: sourcePath);
         Stream data = await this._contentDownloader.ReadUpstreamAsync(
             config: config,
             path: sourcePath,
             userAgent: userAgent,
+            cacheSetting is not null,
             cancellationToken: cancellationToken
         );
-
-        CacheSetting? cacheSetting = ShouldCache(config: config, sourcePath: sourcePath);
-
-        if (cacheSetting is not null && !RequestHasQuery(sourcePath))
-        {
-            string host = config.HostOnlyTarget();
-            await this._packageStorage.SaveFileAsync(
-                sourceHost: host,
-                sourcePath: sourcePath,
-                buffer: data,
-                cancellationToken: DoNotCancelEarly
-            );
-
-            Stream? stream = this._packageStorage.ReadFile(host, sourcePath);
-
-            return stream is null ? null : new PackageResult(Data: stream, CacheSetting: cacheSetting);
-        }
 
         return new PackageResult(Data: data, CacheSetting: cacheSetting);
     }

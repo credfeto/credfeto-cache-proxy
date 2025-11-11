@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Credfeto.Cache.Proxy.Models.Config;
 using Credfeto.Cache.Proxy.Server.Extensions;
 using Credfeto.Cache.Proxy.Server.Storage.Services.LoggerExtensions;
+using Credfeto.Cache.Proxy.Storage.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using NonBlocking;
@@ -21,19 +22,16 @@ public sealed class ContentDownloader : IContentDownloader
     private readonly ConcurrentDictionary<string, SemaphoreSlim> _connections = new(StringComparer.Ordinal);
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ILogger<ContentDownloader> _logger;
+    private readonly IPackageStorage _packageStorage;
 
-    public ContentDownloader(IHttpClientFactory httpClientFactory, ILogger<ContentDownloader> logger)
+    public ContentDownloader(IHttpClientFactory httpClientFactory, IPackageStorage packageStorage, ILogger<ContentDownloader> logger)
     {
         this._httpClientFactory = httpClientFactory;
+        this._packageStorage = packageStorage;
         this._logger = logger;
     }
 
-    public async ValueTask<Stream> ReadUpstreamAsync(
-        CacheServerConfig config,
-        PathString path,
-        ProductInfoHeaderValue? userAgent,
-        CancellationToken cancellationToken
-    )
+    public async ValueTask<Stream> ReadUpstreamAsync(CacheServerConfig config, PathString path, ProductInfoHeaderValue? userAgent, bool cache, CancellationToken cancellationToken)
     {
         HttpClient client = this.GetClient(config: config, userAgent: userAgent, out Uri baseUri);
 
@@ -42,24 +40,28 @@ public sealed class ContentDownloader : IContentDownloader
 
         try
         {
-            using (
-                HttpResponseMessage result = await client.GetAsync(
-                    requestUri: requestUri,
-                    cancellationToken: DoNotCancelEarly
-                )
-            )
+            using (HttpResponseMessage result = await client.GetAsync(requestUri: requestUri, cancellationToken: DoNotCancelEarly))
             {
                 if (result.IsSuccessStatusCode)
                 {
-                    Stream bytes = await result.Content.ReadAsStreamAsync(cancellationToken: DoNotCancelEarly);
+                    if (cache)
+                    {
+                        string host = config.HostOnlyTarget();
+                        await this._packageStorage.SaveFileAsync(sourceHost: host, sourcePath: path, readAsync: result.Content.CopyToAsync, cancellationToken: DoNotCancelEarly);
 
-                    this._logger.UpstreamPackageOk(
-                        upstream: requestUri,
-                        statusCode: result.StatusCode,
-                        length: (int)bytes.Length
-                    );
+                        Stream? stream = this._packageStorage.ReadFile(sourceHost: host, sourcePath: path);
 
-                    return bytes;
+                        if (stream is not null)
+                        {
+                            this._logger.UpstreamPackageOk(upstream: requestUri, statusCode: result.StatusCode, (int)stream.Length);
+
+                            return stream;
+                        }
+                    }
+                    else
+                    {
+                        return new MemoryStream(await result.Content.ReadAsByteArrayAsync(cancellationToken), false);
+                    }
                 }
 
                 return Failed(requestUri: requestUri, resultStatusCode: result.StatusCode);
@@ -104,26 +106,21 @@ public sealed class ContentDownloader : IContentDownloader
 
         string full = urlBase + path.Value;
 
-        return new(full, UriKind.Absolute);
+        return new(uriString: full, uriKind: UriKind.Absolute);
     }
 
     [DoesNotReturn]
     private static Stream Failed(Uri requestUri, HttpStatusCode resultStatusCode)
     {
-        throw new HttpRequestException(
-            $"Failed to download {requestUri}: {resultStatusCode.GetName()}",
-            inner: null,
-            statusCode: resultStatusCode
-        );
+        throw new HttpRequestException($"Failed to download {requestUri}: {resultStatusCode.GetName()}", inner: null, statusCode: resultStatusCode);
     }
 
     private HttpClient GetClient(CacheServerConfig config, ProductInfoHeaderValue? userAgent, out Uri baseUri)
     {
         baseUri = new(uriString: config.Target, uriKind: UriKind.Absolute);
 
-        return this
-            ._httpClientFactory.CreateClient(nameof(ContentDownloader))
-            .WithBaseAddress(baseUri)
-            .WithUserAgent(userAgent);
+        return this._httpClientFactory.CreateClient(nameof(ContentDownloader))
+                   .WithBaseAddress(baseUri)
+                   .WithUserAgent(userAgent);
     }
 }

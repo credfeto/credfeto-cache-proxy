@@ -80,7 +80,12 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
         await this._packageStorage.SaveFileAsync(
             sourceHost: HOST,
             sourcePath: "file.txt",
-            new MemoryStream("test"u8.ToArray(), false),
+            async (s, ct) =>
+            {
+
+                await s.WriteAsync("test"u8.ToArray(), ct);
+            },
+
             cancellationToken: cancellationToken
         );
 

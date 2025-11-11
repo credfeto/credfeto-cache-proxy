@@ -59,7 +59,7 @@ public sealed class FileSystemPackageStorage : IPackageStorage
     public async ValueTask SaveFileAsync(
         string sourceHost,
         string sourcePath,
-        Stream buffer,
+        Func<Stream, CancellationToken, Task> readAsync,
         CancellationToken cancellationToken
     )
     {
@@ -80,7 +80,7 @@ public sealed class FileSystemPackageStorage : IPackageStorage
 
             await using (FileStream stream = File.OpenWrite(tmpPath))
             {
-                await buffer.CopyToAsync(stream, cancellationToken);
+                await readAsync(stream, cancellationToken);
             }
 
             DeleteFile(packagePath);

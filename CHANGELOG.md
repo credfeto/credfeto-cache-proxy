@@ -11,6 +11,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Changed
 - SDK - Updated DotNet SDK to 9.0.305
 - Dotnet 10.0
+- Attempt to not read entire files into memory
 ### Removed
 ### Deployment Changes
 
