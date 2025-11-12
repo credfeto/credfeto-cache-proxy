@@ -9,15 +9,18 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
-- SDK - Updated DotNet SDK to 9.0.305
-- Dotnet 10.0
-- Attempt to not read entire files into memory
 ### Removed
 ### Deployment Changes
 
 <!--
 Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
 -->
+## [0.0.55] - 2025-11-12
+### Changed
+- SDK - Updated DotNet SDK to 9.0.305
+- Dotnet 10.0
+- Attempt to not read entire files into memory
+
 ## [0.0.54] - 2025-08-12
 ### Changed
 - Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.52.345
