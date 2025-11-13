@@ -24,14 +24,24 @@ public sealed class ContentDownloader : IContentDownloader
     private readonly ILogger<ContentDownloader> _logger;
     private readonly IPackageStorage _packageStorage;
 
-    public ContentDownloader(IHttpClientFactory httpClientFactory, IPackageStorage packageStorage, ILogger<ContentDownloader> logger)
+    public ContentDownloader(
+        IHttpClientFactory httpClientFactory,
+        IPackageStorage packageStorage,
+        ILogger<ContentDownloader> logger
+    )
     {
         this._httpClientFactory = httpClientFactory;
         this._packageStorage = packageStorage;
         this._logger = logger;
     }
 
-    public async ValueTask<Stream> ReadUpstreamAsync(CacheServerConfig config, PathString path, ProductInfoHeaderValue? userAgent, bool cache, CancellationToken cancellationToken)
+    public async ValueTask<Stream> ReadUpstreamAsync(
+        CacheServerConfig config,
+        PathString path,
+        ProductInfoHeaderValue? userAgent,
+        bool cache,
+        CancellationToken cancellationToken
+    )
     {
         HttpClient client = this.GetClient(config: config, userAgent: userAgent, out Uri baseUri);
 
@@ -40,20 +50,34 @@ public sealed class ContentDownloader : IContentDownloader
 
         try
         {
-            using (HttpResponseMessage result = await client.GetAsync(requestUri: requestUri, cancellationToken: DoNotCancelEarly))
+            using (
+                HttpResponseMessage result = await client.GetAsync(
+                    requestUri: requestUri,
+                    cancellationToken: DoNotCancelEarly
+                )
+            )
             {
                 if (result.IsSuccessStatusCode)
                 {
                     if (cache)
                     {
                         string host = config.HostOnlyTarget();
-                        await this._packageStorage.SaveFileAsync(sourceHost: host, sourcePath: path, readAsync: result.Content.CopyToAsync, cancellationToken: DoNotCancelEarly);
+                        await this._packageStorage.SaveFileAsync(
+                            sourceHost: host,
+                            sourcePath: path,
+                            readAsync: result.Content.CopyToAsync,
+                            cancellationToken: DoNotCancelEarly
+                        );
 
                         Stream? stream = this._packageStorage.ReadFile(sourceHost: host, sourcePath: path);
 
                         if (stream is not null)
                         {
-                            this._logger.UpstreamPackageOk(upstream: requestUri, statusCode: result.StatusCode, (int)stream.Length);
+                            this._logger.UpstreamPackageOk(
+                                upstream: requestUri,
+                                statusCode: result.StatusCode,
+                                (int)stream.Length
+                            );
 
                             return stream;
                         }
@@ -112,15 +136,20 @@ public sealed class ContentDownloader : IContentDownloader
     [DoesNotReturn]
     private static Stream Failed(Uri requestUri, HttpStatusCode resultStatusCode)
     {
-        throw new HttpRequestException($"Failed to download {requestUri}: {resultStatusCode.GetName()}", inner: null, statusCode: resultStatusCode);
+        throw new HttpRequestException(
+            $"Failed to download {requestUri}: {resultStatusCode.GetName()}",
+            inner: null,
+            statusCode: resultStatusCode
+        );
     }
 
     private HttpClient GetClient(CacheServerConfig config, ProductInfoHeaderValue? userAgent, out Uri baseUri)
     {
         baseUri = new(uriString: config.Target, uriKind: UriKind.Absolute);
 
-        return this._httpClientFactory.CreateClient(nameof(ContentDownloader))
-                   .WithBaseAddress(baseUri)
-                   .WithUserAgent(userAgent);
+        return this
+            ._httpClientFactory.CreateClient(nameof(ContentDownloader))
+            .WithBaseAddress(baseUri)
+            .WithUserAgent(userAgent);
     }
 }
