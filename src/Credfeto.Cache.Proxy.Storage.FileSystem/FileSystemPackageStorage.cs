@@ -25,10 +25,7 @@ public sealed class FileSystemPackageStorage : IPackageStorage
         this.EnsureDirectoryExists(this._config.Storage);
     }
 
-    public Stream? ReadFile(
-        string sourceHost,
-        string sourcePath
-    )
+    public Stream? ReadFile(string sourceHost, string sourcePath)
     {
         if (!this.BuildPackagePath(sourceHost: sourceHost, path: sourcePath, out string? packagePath, out string? dir))
         {
@@ -68,11 +65,7 @@ public sealed class FileSystemPackageStorage : IPackageStorage
             return;
         }
 
-        string tmpPath = string.Join(".",
-                                     packagePath,
-                                     Guid.NewGuid()
-                                         .ToString(),
-                                     "tmp");
+        string tmpPath = string.Join(".", packagePath, Guid.NewGuid().ToString(), "tmp");
 
         try
         {
