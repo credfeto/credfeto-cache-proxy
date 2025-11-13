@@ -36,11 +36,7 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
     [Fact]
     public void FileDoesNotExist()
     {
-
-        Stream? result = this._packageStorage.ReadFile(
-            sourceHost: HOST,
-            sourcePath: "doesnotexist"
-        );
+        Stream? result = this._packageStorage.ReadFile(sourceHost: HOST, sourcePath: "doesnotexist");
 
         Assert.Null(result);
     }
@@ -56,10 +52,7 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
             cancellationToken: cancellationToken
         );
 
-        Stream? result =  this._packageStorage.ReadFile(
-            sourceHost: HOST,
-            sourcePath: "file.txt"
-        );
+        Stream? result = this._packageStorage.ReadFile(sourceHost: HOST, sourcePath: "file.txt");
 
         Assert.NotNull(result);
         Assert.Equal(expected: 4, actual: result.Length);
@@ -70,10 +63,7 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
     {
         CancellationToken cancellationToken = this.CancellationToken();
 
-        Stream? resultBefore = this._packageStorage.ReadFile(
-            sourceHost: HOST,
-            sourcePath: "file.txt"
-        );
+        Stream? resultBefore = this._packageStorage.ReadFile(sourceHost: HOST, sourcePath: "file.txt");
 
         Assert.Null(resultBefore);
 
@@ -82,17 +72,12 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
             sourcePath: "file.txt",
             async (s, ct) =>
             {
-
                 await s.WriteAsync("test"u8.ToArray(), ct);
             },
-
             cancellationToken: cancellationToken
         );
 
-        Stream? resultAfter = this._packageStorage.ReadFile(
-            sourceHost: HOST,
-            sourcePath: "file.txt"
-        );
+        Stream? resultAfter = this._packageStorage.ReadFile(sourceHost: HOST, sourcePath: "file.txt");
 
         Assert.NotNull(resultAfter);
         Assert.Equal(expected: 4, actual: resultAfter.Length);
