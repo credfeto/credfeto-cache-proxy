@@ -10,7 +10,8 @@ internal static partial class StartupBanner
     public static void Show()
     {
         Console.WriteLine(Banner);
-
+        Console.WriteLine();
+        Console.WriteLine();
         Console.WriteLine("Starting version " + VersionInformation.Version + "...");
     }
 }
