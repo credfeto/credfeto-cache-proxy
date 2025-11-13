@@ -28,8 +28,7 @@ public sealed class ContentSource : IContentSource
         CancellationToken cancellationToken
     )
     {
-
-        return  this.TryToGetFromCache(config: config, sourcePath: path)
+        return this.TryToGetFromCache(config: config, sourcePath: path)
             ?? await this.GetFromUpstream2Async(
                 config: config,
                 sourcePath: path,
@@ -38,10 +37,7 @@ public sealed class ContentSource : IContentSource
             );
     }
 
-    private PackageResult? TryToGetFromCache(
-        CacheServerConfig config,
-        string sourcePath
-    )
+    private PackageResult? TryToGetFromCache(CacheServerConfig config, string sourcePath)
     {
         if (RequestHasQuery(sourcePath))
         {
@@ -50,7 +46,10 @@ public sealed class ContentSource : IContentSource
 
         string host = config.HostOnlyTarget();
 
-        Stream? data = this._packageStorage.ReadFile(sourceHost: host, Path.Combine(path1: config.Target, path2: sourcePath));
+        Stream? data = this._packageStorage.ReadFile(
+            sourceHost: host,
+            Path.Combine(path1: config.Target, path2: sourcePath)
+        );
 
         return data is null ? null : new(Data: data, ShouldCache(config: config, sourcePath: sourcePath));
     }
