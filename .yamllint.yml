@@ -12,8 +12,3 @@ rules:
     max: 160
   truthy:
     allowed-values: ["true", "false", "on"]
-  braces:
-    max-spaces-inside: 1
-  octal-values:
-    forbid-implicit-octal: true
-    forbid-explicit-octal: true
