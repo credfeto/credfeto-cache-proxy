@@ -84,6 +84,7 @@ internal static class ServerStartup
         builder
             .Services.Configure<ServerConfig>(section)
             .AddDate()
+            .AddSingleton<ServerHeaderMiddleware>()
             .AddSingleton<CacheMiddleware>()
             .AddSingleton<IPackageStorage, FileSystemPackageStorage>()
             .AddSingleton<IContentDownloader, ContentDownloader>()

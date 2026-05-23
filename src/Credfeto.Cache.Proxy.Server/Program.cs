@@ -60,6 +60,7 @@ public static class Program
     private static WebApplication AddMiddleware(WebApplication application)
     {
         WebApplication app = (WebApplication)application.UseForwardedHeaders();
+        app = (WebApplication)app.UseMiddleware<ServerHeaderMiddleware>();
 
         return (WebApplication)app.ConfigureEndpoints().UseMiddleware<CacheMiddleware>();
     }
