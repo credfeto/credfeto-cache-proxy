@@ -341,9 +341,7 @@ server-dist/
 .nuget/
 
 # Dotnet tool config
-.config/**
-dotnet-tools.json
-!.config/dotnet-tools.json
+/dotnet-tools.json
 
 # Test output
 /test-output
