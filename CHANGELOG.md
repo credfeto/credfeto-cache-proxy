@@ -8,6 +8,15 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ## [Unreleased]
 ### Added
 ### Fixed
+### Changed
+### Removed
+### Deployment Changes
+
+<!--
+Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
+-->
+## [0.0.67] - 2026-05-24
+### Fixed
 - Use EphemeralKeySet when loading HTTPS certificate to fix Docker container startup failure
 ### Changed
 - Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.125.1199
@@ -17,12 +26,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated FunFair.Test.Common to 6.2.25.2243
 - Dependencies - Updated FunFair.Test.Source.Generator to 6.2.25.2243
 - Dependencies - Updated Microsoft.Extensions to 10.0.8
-### Removed
-### Deployment Changes
 
-<!--
-Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
--->
 ## [0.0.66] - 2026-05-13
 ### Changed
 - Dependencies - Updated Credfeto.Enumeration to 1.2.142.1836
