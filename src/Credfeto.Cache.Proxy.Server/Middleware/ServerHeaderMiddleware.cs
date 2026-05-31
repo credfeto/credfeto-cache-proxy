@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
@@ -8,7 +8,16 @@ public sealed class ServerHeaderMiddleware : IMiddleware
 {
     public Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        context.Response.Headers["X-Server"] = Environment.MachineName;
+        context.Response.OnStarting(
+            static state =>
+            {
+                HttpContext ctx = (HttpContext)state;
+                ctx.Response.Headers["X-Server"] = Environment.MachineName;
+
+                return Task.CompletedTask;
+            },
+            context
+        );
 
         return next(context);
     }
