@@ -1,3 +1,4 @@
+using System;
 using Credfeto.Cache.Proxy.Models.Config;
 using FunFair.Test.Common;
 using Xunit;
@@ -41,5 +42,12 @@ public sealed class CacheServerConfigTests : TestBase
         string actual = config.HostOnlyTarget();
 
         Assert.Equal(expected: expectedHost, actual: actual);
+    }
+
+    [Fact]
+    public void HostOnlyTargetThrowsForNonAbsoluteUri()
+    {
+        CacheServerConfig config = new(); // default Target is "example.com" (no scheme)
+        Assert.Throws<UriFormatException>(config.HostOnlyTarget);
     }
 }
