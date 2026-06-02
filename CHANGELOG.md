@@ -9,6 +9,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Security
 ### Added
 - Unit tests for Credfeto.Cache.Proxy.Models achieving 100% code coverage
+- Unit tests for Credfeto.Cache.Proxy.Server achieving 100% code coverage
 ### Fixed
 ### Changed
 ### Deprecated
