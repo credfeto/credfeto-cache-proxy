@@ -253,6 +253,9 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
             File.SetUnixFileMode(lockedDir, originalMode);
         }
 
+        Stream? result = this._packageStorage.ReadFile(sourceHost: HOST, sourcePath: SOURCE_PATH);
+        Assert.Null(result);
+
         async Task WriteAndLockAsync(Stream stream, CancellationToken ct)
         {
             await stream.WriteAsync("data"u8.ToArray(), ct);
