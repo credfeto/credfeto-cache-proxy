@@ -16,6 +16,8 @@
  - any: [ 'src/$Credfeto.Cache.Proxy.Models.Tests/**/*' ]
 "credfeto-cache-proxy-server":
  - any: [ 'src/$Credfeto.Cache.Proxy.Server/**/*' ]
+"credfeto-cache-proxy-server-tests":
+ - any: [ 'src/$Credfeto.Cache.Proxy.Server.Tests/**/*' ]
 "credfeto-cache-proxy-storage-filesystem":
  - any: [ 'src/$Credfeto.Cache.Proxy.Storage.FileSystem/**/*' ]
 "credfeto-cache-proxy-storage-filesystem-tests":
