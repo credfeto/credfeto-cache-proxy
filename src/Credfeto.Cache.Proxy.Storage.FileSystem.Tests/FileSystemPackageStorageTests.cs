@@ -104,10 +104,7 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
     [Fact]
     public void ReadFile_WhenBuildPackagePathReturnsFalse_ReturnsNull()
     {
-        IPackageStorage storage = new FileSystemPackageStorage(
-            Options.Create(new ServerConfig { Sites = [], Storage = string.Empty }),
-            this.GetTypedLogger<FileSystemPackageStorage>()
-        );
+        IPackageStorage storage = this.CreateStorageWithEmptyStoragePath();
 
         Stream? result = storage.ReadFile(sourceHost: string.Empty, sourcePath: string.Empty);
 
@@ -117,10 +114,7 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
     [Fact]
     public async Task SaveFileAsync_WhenBuildPackagePathReturnsFalse_DoesNotInvokeCallbackAsync()
     {
-        IPackageStorage storage = new FileSystemPackageStorage(
-            Options.Create(new ServerConfig { Sites = [], Storage = string.Empty }),
-            this.GetTypedLogger<FileSystemPackageStorage>()
-        );
+        IPackageStorage storage = this.CreateStorageWithEmptyStoragePath();
 
         bool callbackInvoked = false;
 
@@ -266,4 +260,10 @@ public sealed class FileSystemPackageStorageTests : LoggingFolderCleanupTestBase
             throw new IOException(message: "Simulated failure after write");
         }
     }
+
+    private IPackageStorage CreateStorageWithEmptyStoragePath() =>
+        new FileSystemPackageStorage(
+            Options.Create(new ServerConfig { Sites = [], Storage = string.Empty }),
+            this.GetTypedLogger<FileSystemPackageStorage>()
+        );
 }
