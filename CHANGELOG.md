@@ -14,6 +14,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Fixed
 ### Changed
 - Migrate CacheMiddleware from ICurrentTimeSource to TimeProvider
+- Dependencies - Updated Credfeto.Enumeration to 1.2.144.1906
 ### Deprecated
 ### Removed
 ### Deployment Changes
