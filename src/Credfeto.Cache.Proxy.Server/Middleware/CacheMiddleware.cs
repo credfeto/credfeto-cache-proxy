@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -11,7 +11,6 @@ using Credfeto.Cache.Proxy.Models.Config;
 using Credfeto.Cache.Proxy.Server.Extensions;
 using Credfeto.Cache.Proxy.Server.Middleware.LoggingExtensions;
 using Credfeto.Cache.Proxy.Server.Storage;
-using Credfeto.Date.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -25,14 +24,19 @@ public sealed class CacheMiddleware : IMiddleware
 {
     private readonly ServerConfig _config;
     private readonly IContentSource _contentSource;
-    private readonly ICurrentTimeSource _currentTimeSource;
     private readonly ILogger<CacheMiddleware> _logger;
+    private readonly TimeProvider _timeProvider;
 
-    public CacheMiddleware(IOptions<ServerConfig> config, IContentSource contentSource, ICurrentTimeSource currentTimeSource, ILogger<CacheMiddleware> logger)
+    public CacheMiddleware(
+        IOptions<ServerConfig> config,
+        IContentSource contentSource,
+        TimeProvider timeProvider,
+        ILogger<CacheMiddleware> logger
+    )
     {
         this._config = config.Value;
         this._contentSource = contentSource;
-        this._currentTimeSource = currentTimeSource;
+        this._timeProvider = timeProvider;
         this._logger = logger;
     }
 
@@ -56,19 +60,28 @@ public sealed class CacheMiddleware : IMiddleware
 
         string path = GetPath(context);
         IQueryCollection query = context.Request.Query;
-
         string pathWithQuery = GetPathWithQuery(query: query, path: path);
 
         this._logger.StartingFetch(host: config.Source, path: pathWithQuery);
 
+        context.Response.Headers.KeepAlive = "60";
+
+        await this.FetchAndRespondAsync(context: context, config: config, pathWithQuery: pathWithQuery);
+    }
+
+    private async Task FetchAndRespondAsync(HttpContext context, CacheServerConfig config, string pathWithQuery)
+    {
         CancellationToken cancellationToken = context.RequestAborted;
         ProductInfoHeaderValue? userAgent = context.GetUserAgent();
 
-        context.Response.Headers.KeepAlive = "60";
-
         try
         {
-            PackageResult? result = await this._contentSource.GetFromUpstreamAsync(config: config, path: pathWithQuery, userAgent: userAgent, cancellationToken: cancellationToken);
+            PackageResult? result = await this._contentSource.GetFromUpstreamAsync(
+                config: config,
+                path: pathWithQuery,
+                userAgent: userAgent,
+                cancellationToken: cancellationToken
+            );
 
             if (result is null)
             {
@@ -89,7 +102,12 @@ public sealed class CacheMiddleware : IMiddleware
         }
         catch (Exception exception)
         {
-            this._logger.RequestFailed(host: config.Source, path: pathWithQuery, message: exception.Message, exception: exception);
+            this._logger.RequestFailed(
+                host: config.Source,
+                path: pathWithQuery,
+                message: exception.Message,
+                exception: exception
+            );
             Failed(context: context, result: HttpStatusCode.NotFound);
         }
     }
@@ -101,9 +119,8 @@ public sealed class CacheMiddleware : IMiddleware
             return path;
         }
 
-        return path + "?" + string.Join('&', query.Select( q =>  $"{q.Key}={q.Value}"));
+        return path + "?" + string.Join('&', query.Select(q => $"{q.Key}={q.Value}"));
     }
-
 
     private CacheServerConfig? GetConfig(HttpContext context)
     {
@@ -114,7 +131,9 @@ public sealed class CacheMiddleware : IMiddleware
             return null;
         }
 
-        CacheServerConfig? config = this._config.Sites.FirstOrDefault(p => StringComparer.Ordinal.Equals(x: p.Source, y: host));
+        CacheServerConfig? config = this._config.Sites.FirstOrDefault(p =>
+            StringComparer.Ordinal.Equals(x: p.Source, y: host)
+        );
 
         if (config is null)
         {
@@ -133,9 +152,10 @@ public sealed class CacheMiddleware : IMiddleware
         context.Response.StatusCode = (int)HttpStatusCode.OK;
         context.Response.Headers.Append(key: "Content-Type", value: "application/octet-stream");
         context.Response.Headers.CacheControl = "public, max-age=63072000, immutable";
-        context.Response.Headers.Expires = this._currentTimeSource.UtcNow()
-                                               .AddSeconds(63072000)
-                                               .ToString(format: "ddd, dd MMM yyyy HH:mm:ss 'GMT'", formatProvider: CultureInfo.InvariantCulture);
+        context.Response.Headers.Expires = this
+            ._timeProvider.GetUtcNow()
+            .AddSeconds(63072000)
+            .ToString(format: "ddd, dd MMM yyyy HH:mm:ss 'GMT'", formatProvider: CultureInfo.InvariantCulture);
 
         await using (Stream stream = data.Data)
         {
@@ -173,8 +193,6 @@ public sealed class CacheMiddleware : IMiddleware
 
     private static string GetPath(HttpContext context)
     {
-        return context.Request.Path.HasValue
-            ? context.Request.Path.Value
-            : "/";
+        return context.Request.Path.HasValue ? context.Request.Path.Value : "/";
     }
 }

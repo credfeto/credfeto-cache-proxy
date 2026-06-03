@@ -11,7 +11,6 @@ using Credfeto.Cache.Proxy.Server.Storage;
 using Credfeto.Cache.Proxy.Server.Storage.Services;
 using Credfeto.Cache.Proxy.Storage.FileSystem;
 using Credfeto.Cache.Proxy.Storage.Interfaces;
-using Credfeto.Date;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -83,7 +82,7 @@ internal static class ServerStartup
 
         builder
             .Services.Configure<ServerConfig>(section)
-            .AddDate()
+            .AddSingleton(TimeProvider.System)
             .AddSingleton<CacheMiddleware>()
             .AddSingleton<IPackageStorage, FileSystemPackageStorage>()
             .AddSingleton<IContentDownloader, ContentDownloader>()
