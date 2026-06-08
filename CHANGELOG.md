@@ -12,6 +12,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Unit tests for Credfeto.Cache.Proxy.Server achieving 100% code coverage
 - Tests to increase code coverage to 100% for Credfeto.Cache.Proxy.Storage.FileSystem
 ### Fixed
+- Checkout source before calling local composite actions in on_new_pr workflow
 ### Changed
 - Migrate CacheMiddleware from ICurrentTimeSource to TimeProvider
 - Dependencies - Updated Credfeto.Enumeration to 1.2.144.1906
