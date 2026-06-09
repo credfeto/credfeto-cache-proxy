@@ -8,20 +8,24 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ## [Unreleased]
 ### Security
 ### Added
-- Unit tests for Credfeto.Cache.Proxy.Models achieving 100% code coverage
-- Unit tests for Credfeto.Cache.Proxy.Server achieving 100% code coverage
-- Tests to increase code coverage to 100% for Credfeto.Cache.Proxy.Storage.FileSystem
 ### Fixed
 ### Changed
-- Migrate CacheMiddleware from ICurrentTimeSource to TimeProvider
-- Dependencies - Updated Credfeto.Enumeration to 1.2.144.1906
-- Dependencies - Updated Meziantou.Analyzer to 3.0.98
 ### Deprecated
 ### Removed
 ### Deployment Changes
 <!--
 Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
 -->
+## [0.0.69] - 2026-06-09
+### Added
+- Unit tests for Credfeto.Cache.Proxy.Models achieving 100% code coverage
+- Unit tests for Credfeto.Cache.Proxy.Server achieving 100% code coverage
+- Tests to increase code coverage to 100% for Credfeto.Cache.Proxy.Storage.FileSystem
+### Changed
+- Migrate CacheMiddleware from ICurrentTimeSource to TimeProvider
+- Dependencies - Updated Credfeto.Enumeration to 1.2.144.1906
+- Dependencies - Updated Meziantou.Analyzer to 3.0.98
+
 ## [0.0.68] - 2026-06-02
 ### Changed
 - SDK - Updated DotNet SDK to 10.0.300
