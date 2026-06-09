@@ -3,8 +3,7 @@
 This is an index of global instructions that apply to all projects.
 
 - Ensure consistency across all projects.
-- This folder should be maintained ONLY in the `git@github.com:credfeto/cs-template.git` repository.
-- Updates to this folder will be distributed using an external mechanism.
+- `credfeto/cs-template` is the canonical source for this folder; all edits must originate here and are distributed to other repositories (including `funfair-tech/funfair-server-template`) via an external sync mechanism.
 - Rule files are named `<category>.instructions.md`; code reference files are named `<category>.examples.md`.
 - All files must maintain a backlink to this index.
 - When adding a rule, check all other files for conflicts or duplication.
@@ -35,6 +34,7 @@ Load these only when the work involves the relevant technology or context.
 | [shell-scripts.instructions.md](shell-scripts.instructions.md) | Any `.sh` file is present or shell script work is needed | Shebang, linting, output helper conventions (`die`/`success`/`info`) |
 | [shell.firewall.instructions.md](shell.firewall.instructions.md) | Firewall rule management is needed | `firewall-cmd` rules, private network constants |
 | [github-workflows.instructions.md](github-workflows.instructions.md) | Any `.github/workflows/*.yml` file is present or being created | Action policy, composite actions, step ordering, permissions, version pinning |
+| [npm.instructions.md](npm.instructions.md) | Any `package.json` is present or npm packages are being added/updated | Exact version pinning, `--save-exact`, no semver ranges, explicit updates |
 | [api.instructions.md](api.instructions.md) | An HTTP API is being created or modified | `.http` test file requirements |
 | [performance.instructions.md](performance.instructions.md) | Performance-critical code is being written or optimised | Design principles, benchmarks, optimisation workflow |
 | [agent-roles.instructions.md](agent-roles.instructions.md) | You are acting as a named agent (Orchestrator, Code Writer, Code Tester, etc.) | Detailed per-agent responsibilities and behaviour |

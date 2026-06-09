@@ -1,4 +1,5 @@
 --- # Sync labels on a pull request based on the labeler configuration
+# Maintain in repo: funfair-server-template
 name: "Sync PR Labels"
 description: "Syncs labels on a pull request based on the labeler configuration"
 
@@ -14,9 +15,9 @@ runs:
   using: composite
   steps:
     - name: "Sync Labels"
-      uses: actions/labeler@v6.0.1
+      uses: actions/labeler@v6.1.0
       with:
         repo-token: ${{inputs.github-token}}
         configuration-path: .github/labeler.yml
-        sync-labels: true
+        sync-labels: false
         pr-number: ${{inputs.pr-number}}

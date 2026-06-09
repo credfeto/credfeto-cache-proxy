@@ -10,6 +10,28 @@
 - Only work on unassigned issues or issues already assigned to you.
 - Assign yourself to PRs when creating or updating: `gh pr edit <number> --add-assignee @me`.
 
+## GitHub Issue and PR Labels
+
+### Priority Labels (highest to lowest)
+
+| Label | Meaning |
+| --- | --- |
+| `Security` | Security fix — highest possible priority |
+| `Urgent` | Get this done ASAP; security fixes take precedence |
+| `High` | Addressed after `Urgent` work |
+| `Medium` | Addressed after `High` work |
+| `Low` | Addressed after `Medium` work |
+| _(untagged)_ | No priority set — tracked but timing does not matter |
+
+When selecting the next issue to work on, prefer issues with higher-priority labels. Skip any issue labelled `On-Hold` or `Blocked`.
+
+### Status Labels
+
+| Label | Meaning |
+| --- | --- |
+| `On-Hold` | Needs further thought or cannot be implemented yet — do not start work |
+| `Blocked` | Needs human input before work can continue — see the Orchestrator section in [agent-roles.instructions.md](agent-roles.instructions.md) |
+
 ## PR Lifecycle
 
 - Only one active branch or open PR per repository at a time; do not create another until the current one is merged and closed.
@@ -43,8 +65,22 @@ When creating or updating a PR linked to one or more issues:
 1. Ensure the **title** accurately reflects all changes in the PR — update it if the scope has changed.
 2. Ensure the **body** summarises all changes and includes `Closes #<n>` for each linked issue.
 3. Copy all issue labels: `gh issue view <n> --json labels --jq '.labels[].name'` → `gh pr edit <n> --add-label "<label>"`
+4. Never remove any label from a PR or issue — GitHub workflows add labels automatically and they must not be removed.
 
 Repeat after every push or PR update.
+
+## Label Management (MANDATORY)
+
+- Always use `--add-label` when adding labels — **never** `--label`, which replaces all existing labels and destroys automatically-applied classification labels.
+- Never remove labels from issues or PRs. GitHub workflows add classification labels automatically; removing them breaks automation.
+
+## Missing CLI Tools (MANDATORY)
+
+If a required CLI tool is not found, **stop immediately and ask the user to install it**. Never:
+
+- Search for the binary in alternative locations
+- Manipulate PATH to try to find it
+- Attempt to install it without being asked
 
 ## Rules Compliance for In-Flight Work
 
@@ -52,7 +88,8 @@ Whenever an instruction file is added or updated, re-evaluate all open branches 
 
 ## Instruction File Source Routing
 
-- If the file originates from `funfair/funfair-server-template` or `credfeto/cs-template`, raise an issue there first.
+- For changes to shared global instruction files (`ai/global/**`), raise an issue in `credfeto/cs-template` — it is the canonical source for those files.
+- For changes specific to FunFair server projects, raise an issue in `funfair-tech/funfair-server-template` instead.
 - Otherwise, make the change directly in the current repository.
 
 ## Large Multi-Handler / Multi-App Tasks

@@ -1,4 +1,5 @@
 --- # Delete a remote branch
+# Maintain in repo: funfair-server-template
 name: "Delete Branch"
 description: "Deletes a remote branch"
 
@@ -19,7 +20,7 @@ runs:
         github-token: ${{inputs.github-token}}
         script: |
           const branch = process.env.BRANCH;
-          await octokit.rest.git.deleteRef({
+          await github.rest.git.deleteRef({
             owner: context.repo.owner,
             repo: context.repo.repo,
             ref: `heads/${branch}`,

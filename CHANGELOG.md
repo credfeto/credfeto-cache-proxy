@@ -10,15 +10,42 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 - Add X-Server response header middleware that appends the server hostname to every HTTP response (#16)
 ### Fixed
-- Use EphemeralKeySet when loading HTTPS certificate to fix Docker container startup failure
 ### Changed
-- Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.125.1199
-- Dependencies - Updated Meziantou.Analyzer to 3.0.85
+### Deprecated
 ### Removed
 ### Deployment Changes
 <!--
 Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
 -->
+## [0.0.69] - 2026-06-09
+### Added
+- Unit tests for Credfeto.Cache.Proxy.Models achieving 100% code coverage
+- Unit tests for Credfeto.Cache.Proxy.Server achieving 100% code coverage
+- Tests to increase code coverage to 100% for Credfeto.Cache.Proxy.Storage.FileSystem
+### Changed
+- Migrate CacheMiddleware from ICurrentTimeSource to TimeProvider
+- Dependencies - Updated Credfeto.Enumeration to 1.2.144.1906
+- Dependencies - Updated Meziantou.Analyzer to 3.0.98
+
+## [0.0.68] - 2026-06-02
+### Changed
+- SDK - Updated DotNet SDK to 10.0.300
+- Dependencies - Updated Credfeto.Enumeration to 1.2.143.1876
+- Dependencies - Updated Meziantou.Analyzer to 3.0.96
+- Dependencies - Updated SonarAnalyzer.CSharp to 10.27.0.140913
+
+## [0.0.67] - 2026-05-24
+### Fixed
+- Use EphemeralKeySet when loading HTTPS certificate to fix Docker container startup failure
+### Changed
+- Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.125.1199
+- Dependencies - Updated FunFair.CodeAnalysis to 7.2.0.1978
+- Dependencies - Updated Meziantou.Analyzer to 3.0.86
+- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.65.765
+- Dependencies - Updated FunFair.Test.Common to 6.2.25.2243
+- Dependencies - Updated FunFair.Test.Source.Generator to 6.2.25.2243
+- Dependencies - Updated Microsoft.Extensions to 10.0.8
+
 ## [0.0.66] - 2026-05-13
 ### Changed
 - Dependencies - Updated Credfeto.Enumeration to 1.2.142.1836

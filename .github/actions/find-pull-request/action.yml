@@ -1,4 +1,5 @@
 --- # Find an open pull request for a given branch
+# Maintain in repo: funfair-server-template
 name: "Find Pull Request"
 description: "Finds an open pull request for a given branch and returns its number and head SHA"
 
@@ -26,7 +27,7 @@ runs:
       with:
         script: |
           const branch = process.env.BRANCH;
-          const { data: pulls } = await octokit.rest.pulls.list({
+          const { data: pulls } = await github.rest.pulls.list({
             owner: context.repo.owner,
             repo: context.repo.repo,
             state: 'open',

@@ -9,6 +9,7 @@
     <File Path="publish" />
   </Folder>
   <Project Path="Credfeto.Cache.Proxy.Models/Credfeto.Cache.Proxy.Models.csproj" />
+  <Project Path="Credfeto.Cache.Proxy.Models.Tests/Credfeto.Cache.Proxy.Models.Tests.csproj" />
   <Project Path="Credfeto.Cache.Proxy.Server/Credfeto.Cache.Proxy.Server.csproj" />
   <Project Path="Credfeto.Cache.Proxy.Server.Tests/Credfeto.Cache.Proxy.Server.Tests.csproj" />
   <Project Path="Credfeto.Cache.Proxy.Storage.FileSystem.Tests/Credfeto.Cache.Proxy.Storage.FileSystem.Tests.csproj" />

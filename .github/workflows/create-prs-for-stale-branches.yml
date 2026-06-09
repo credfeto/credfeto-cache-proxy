@@ -1,4 +1,5 @@
 --- # PR: find branches without open pull requests
+# Maintain in repo: funfair-server-template
 name: "PR: Find branches without PR's"
 
 on:
@@ -54,7 +55,7 @@ jobs:
         run: sudo apt install -y jq
 
       - name: "Checkout Source"
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v6.0.3
         with:
           clean: true
           fetch-depth: 0
@@ -106,7 +107,7 @@ jobs:
           } >> "$GITHUB_ENV"
 
       - name: "Checkout Source"
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v6.0.3
         with:
           clean: true
           fetch-depth: 0

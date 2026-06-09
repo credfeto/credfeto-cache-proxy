@@ -1,4 +1,5 @@
 ---  # Create a new branch for the latest (released) dotnet version if there's an update
+# Maintain in repo: funfair-server-template
 name: "Repo: Update Dotnet Version to latest released version"
 on:
   push:
@@ -15,14 +16,13 @@ concurrency:
   group: ${{github.workflow}}-${{github.ref}}
   cancel-in-progress: false
 
-permissions:
-  contents: write
-
-
 jobs:
   bump-dotnet-sdk-version:
     if: endsWith(github.repository, 'funfair-server-template')
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
 
     steps:
       - name: "Check Required Secrets"
@@ -48,11 +48,13 @@ jobs:
           } >> "$GITHUB_ENV"
 
       - name: "Checkout Source"
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v6.0.3
         with:
+          ref: ${{ github.head_ref }}
           clean: true
-          fetch-depth: 1
+          fetch-depth: 0
           token: ${{secrets.SOURCE_PUSH_TOKEN}}
+          persist-credentials: true
 
       - name: "Install dotnet"
         if: runner.environment == 'self-hosted'
@@ -133,3 +135,4 @@ jobs:
           commit_user_email: "credfeto@users.noreply.github.com"
           commit_author: "fun-version[bot] <credfeto@users.noreply.github.com>"
           skip_dirty_check: false
+          create_branch: true

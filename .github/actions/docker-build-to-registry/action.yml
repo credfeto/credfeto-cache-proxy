@@ -1,4 +1,5 @@
 --- # Build Docker container and optionally deploy to ACR
+# Maintain in repo: funfair-server-template
 name: 'Build Docker container and optionally deploy to ACR'
 description: 'Builds a docker image and optionally pushes it to AWS ECR'
 inputs:
@@ -8,7 +9,6 @@ inputs:
   GITHUB_TOKEN:
     description: 'github token for accessing github'
     required: true
-    default: ${{github.token}}
   BUILD_VERSION:
     description: 'Build version'
     required: true
@@ -42,7 +42,7 @@ runs:
         echo "DOCKER_CONTENT_TRUST=1" >> "$GITHUB_ENV"
 
     - name: "Build and export docker container"
-      uses: docker/build-push-action@v7.0.0
+      uses: docker/build-push-action@v7.2.0
       with:
         context: ${{inputs.CONTAINER_SOURCE}}
         load: true
@@ -59,7 +59,8 @@ runs:
         GITHUB_TOKEN: ${{inputs.GITHUB_TOKEN}}
 
     - name: "Docker: Build with tags"
-      uses: docker/build-push-action@v7.0.0
+      if: inputs.DEPLOY == 'true'
+      uses: docker/build-push-action@v7.2.0
       with:
         context: ${{inputs.CONTAINER_SOURCE}}
         platforms: ${{inputs.CONTAINER_PLATFORM}}

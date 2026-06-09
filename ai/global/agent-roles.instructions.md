@@ -7,8 +7,46 @@ Load when acting as a named agent. Routing table and model selection: [task-work
 ## Orchestrator
 
 - Prioritise `CHANGES_REQUESTED` PRs over new issues.
+- When selecting the next issue to work on, order by priority label (highest first): `Security` → `Urgent` → `High` → `Medium` → `Low` → untagged — see [task-workflow.instructions.md](task-workflow.instructions.md) for label definitions.
+- Skip issues labelled `On-Hold` or `Blocked`; if all remaining issues carry these labels, report this to the user and wait.
 - Determine work type and route via the routing table. Never implement directly.
 - If a delegated role escalates a task as infeasible (Coding Researcher **Not possible** result), do not re-route it unchanged. Record the finding on the issue/PR and surface it to the user for a decision — re-scope, accept the suggested alternative, or drop.
+
+### On-Hold Label
+
+An issue labelled `On-Hold` is not ready to be worked on — it needs further thought or cannot be implemented at this time. Do not pick up or assign yourself to an `On-Hold` issue. If the label is removed, re-evaluate priority and proceed normally.
+
+### Blocked Label
+
+When asking a question in a PR or issue comment and waiting for an answer before continuing:
+
+1. Add the `Blocked` label to the PR or issue immediately after posting the question:
+   - Issue: `gh issue edit <number> --repo <owner/repo> --add-label "Blocked"`
+   - PR: `gh pr edit <number> --repo <owner/repo> --add-label "Blocked"`
+2. Do **not** continue working on the item until the label is removed.
+
+### Comment Replies (MANDATORY)
+
+Reply to every PR or issue comment that prompted an action:
+
+- Code change made: reply with `Fixed in <commit-sha> — <one sentence describing what changed and why>`.
+- Question answered inline (no code change): reply with the full answer.
+- No reply means no acknowledgement — always close the loop.
+
+### CI Checks (MANDATORY)
+
+When working on a PR, check CI state **once**:
+
+```bash
+gh pr checks <number> --repo <owner/repo>
+```
+
+Then act immediately — do **not** loop, sleep, or use `--watch`:
+
+- All required checks passed → proceed with the next step.
+- Any check pending or in_progress → post a brief status comment on the PR and stop. The orchestrator re-invokes the session automatically when the PR state changes (checks complete, review arrives, etc.).
+- Any check failed → investigate, fix, push, post a status comment, and stop. Do not wait for the new run to complete.
+- CI consistently failing and cannot be fixed → mark the PR blocked: `gh pr edit <number> --repo <owner/repo> --add-label "Blocked"`
 
 ## Coding Researcher
 
@@ -50,7 +88,7 @@ Invoked by: Code Writer, Code Fixer, Code Reviewer, CI Debugger.
 
 ### Code Reviewer: **Reuse**
 
-- Identify opportunities to reuse existing code instead of writing new code. Focus only on newly changed code.
+- Identify opportunities to reuse existing code instead of writing new code. Scope: newly changed code for Code Reviewer; full file set when dispatched by Repo Auditor.
 
 #### Reuse — Critical Instructions
 
@@ -67,7 +105,7 @@ Invoked by: Code Writer, Code Fixer, Code Reviewer, CI Debugger.
 
 ### Code Reviewer: **Quality**
 
-- Identify code quality issues in newly changed code.
+- Identify code quality issues. Scope: newly changed code for Code Reviewer; full file set when dispatched by Repo Auditor.
 
 #### Quality — Critical Instructions
 
@@ -84,7 +122,7 @@ Invoked by: Code Writer, Code Fixer, Code Reviewer, CI Debugger.
 
 ### Code Reviewer: **Efficiency**
 
-- Identify inefficiencies in newly changed code.
+- Identify inefficiencies. Scope: newly changed code for Code Reviewer; full file set when dispatched by Repo Auditor.
 
 #### Efficiency — Critical Instructions
 
@@ -101,7 +139,7 @@ Invoked by: Code Writer, Code Fixer, Code Reviewer, CI Debugger.
 
 ### Code Reviewer: **Correctness**
 
-- Identify logic errors in newly changed code.
+- Identify logic errors. Scope: newly changed code for Code Reviewer; full file set when dispatched by Repo Auditor.
 
 #### Correctness — Critical Instructions
 
@@ -115,11 +153,10 @@ Invoked by: Code Writer, Code Fixer, Code Reviewer, CI Debugger.
 - Conditionals: incorrect boolean logic, missing negation, wrong operator.
 - Edge cases: null/empty input, zero values, empty collections, missing default cases.
 - Business logic: code that does not match the intent described in the issue or PR.
-- Rule Breaking: there should not be any files that change the linting rules or building rules that weaken the repo.
 
 ### Code Reviewer: **Security**
 
-- Perform a security-focused code review to identify HIGH-CONFIDENCE security vulnerabilities that could have real exploitation potential. Focus only on security implications newly added by the PR.
+- Perform a security-focused review to identify HIGH-CONFIDENCE security vulnerabilities with real exploitation potential. Scope: security implications newly added by the PR for Code Reviewer; full file set when dispatched by Repo Auditor.
 
 #### Security — Critical Instructions
 
@@ -136,7 +173,7 @@ Invoked by: Code Writer, Code Fixer, Code Reviewer, CI Debugger.
 
 ### Code Reviewer: **Compliance**
 
-- Check that newly changed files comply with all applicable rules in the `.ai-instructions` instruction files.
+- Check that files comply with all applicable rules in the `.ai-instructions` instruction files. Scope: newly changed files for Code Reviewer; full file set when dispatched by Repo Auditor.
 
 #### Compliance — Critical Instructions
 
@@ -149,6 +186,7 @@ Invoked by: Code Writer, Code Fixer, Code Reviewer, CI Debugger.
 - Global rules: violations of rules in `ai/global/*.instructions.md` applicable to the changed file types.
 - Local rules: violations of rules in `ai/local/*.instructions.md` applicable to the changed file types — do not re-report violations already covered by global rules.
 - Rule hygiene: local rules in `ai/local/*.instructions.md` that duplicate or restate rules already present in `ai/global/*.instructions.md` — flag these for removal.
+- Rule Breaking: files that change linting rules or build rules in a way that weakens the repo's quality gates.
 - Language/framework rules: e.g. dotnet, shell, SQL instruction compliance where those files are present.
 - Documentation rules: README, CHANGELOG, and comment conventions from `documentation.instructions.md`.
 
@@ -175,7 +213,7 @@ Invoked by: Code Writer, Code Fixer, Code Reviewer, CI Debugger.
 - Convert to draft before starting (`gh pr ready <number> --undo`).
 - One commit per review comment. Hand off to Code Tester after each fix.
 - Respond to **every** review comment without exception:
-  - If the comment required a code change: reply with `Fixed in <commit-sha>`.
+  - If the comment required a code change: reply with `Fixed in <commit-sha> — <one sentence describing what changed and why>`.
   - If the comment is a question or discussion point (no code change needed): reply with a full answer inline on the PR.
 
 ## Rebase Agent
@@ -212,7 +250,7 @@ Invoked by: Code Writer, Code Fixer, Code Reviewer, CI Debugger.
 - Wait up to 1 minute for GitHub to auto-create a PR (`gh pr list --head <branch>`); create one if absent.
 - Title: Conventional Commits format matching the primary commit. Body: summary + `Closes #<n>` (or `Related to #<n>`).
 - Update body if PR already exists. Add yourself as assignee.
-- Mark ready (`gh pr ready <number>`) only if Code Tester and Code Reviewer signed off — rebase first (`git fetch origin && git rebase origin/main`). Otherwise leave as draft.
+- Mark ready (`gh pr ready <number>`) only if Code Tester and Code Reviewer signed off — do not rebase here (hand off to Rebase Agent first if the branch needs rebasing). Otherwise leave as draft.
 
 ## CI Monitor _(not currently enabled)_
 
