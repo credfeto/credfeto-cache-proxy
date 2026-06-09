@@ -8,6 +8,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ## [Unreleased]
 ### Security
 ### Added
+- Add X-Server response header middleware that appends the server hostname to every HTTP response (#16)
 ### Fixed
 ### Changed
 ### Deprecated

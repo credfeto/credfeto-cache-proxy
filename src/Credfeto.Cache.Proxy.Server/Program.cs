@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
@@ -59,8 +59,9 @@ public static class Program
 
     private static WebApplication AddMiddleware(WebApplication application)
     {
-        WebApplication app = (WebApplication)application.UseForwardedHeaders();
-
-        return (WebApplication)app.ConfigureEndpoints().UseMiddleware<CacheMiddleware>();
+        return (WebApplication)
+            ((WebApplication)application.UseForwardedHeaders().UseMiddleware<ServerHeaderMiddleware>())
+                .ConfigureEndpoints()
+                .UseMiddleware<CacheMiddleware>();
     }
 }
