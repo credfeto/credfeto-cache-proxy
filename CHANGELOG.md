@@ -11,6 +11,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Add X-Server response header middleware that appends the server hostname to every HTTP response (#16)
 ### Fixed
 ### Changed
+- SDK - Updated DotNet SDK to 10.0.301
 ### Deprecated
 ### Removed
 ### Deployment Changes
