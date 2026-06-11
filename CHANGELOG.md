@@ -8,16 +8,20 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ## [Unreleased]
 ### Security
 ### Added
-- Add X-Server response header middleware that appends the server hostname to every HTTP response (#16)
 ### Fixed
 ### Changed
-- SDK - Updated DotNet SDK to 10.0.301
 ### Deprecated
 ### Removed
 ### Deployment Changes
 <!--
 Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
 -->
+## [0.0.70] - 2026-06-11
+### Added
+- Add X-Server response header middleware that appends the server hostname to every HTTP response (#16)
+### Changed
+- SDK - Updated DotNet SDK to 10.0.301
+
 ## [0.0.69] - 2026-06-09
 ### Added
 - Unit tests for Credfeto.Cache.Proxy.Models achieving 100% code coverage
