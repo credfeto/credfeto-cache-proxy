@@ -10,6 +10,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
+- SDK - Updated global.json SDK rollForward to latestFeature
 ### Deprecated
 ### Removed
 ### Deployment Changes
