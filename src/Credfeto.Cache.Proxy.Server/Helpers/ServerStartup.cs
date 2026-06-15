@@ -25,7 +25,7 @@ using AppJsonContexts = Credfeto.Cache.Proxy.Models.AppJsonContexts;
 
 namespace Credfeto.Cache.Proxy.Server.Helpers;
 
-internal static class ServerStartup
+public static class ServerStartup
 {
     private const int HTTP_PORT = 8080;
     private const int HTTPS_PORT = 8081;
@@ -56,7 +56,7 @@ internal static class ServerStartup
         Console.WriteLine($"Max worker threads {maxWorker}, Max IOC threads {maxIoc}");
     }
 
-    public static WebApplication CreateApp(string[] args)
+    internal static WebApplication CreateApp(string[] args)
     {
         string configPath = ApplicationConfigLocator.ConfigurationFilesPath;
 

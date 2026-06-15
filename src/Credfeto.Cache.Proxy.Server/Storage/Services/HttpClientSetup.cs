@@ -7,7 +7,7 @@ using Polly;
 
 namespace Credfeto.Cache.Proxy.Server.Storage.Services;
 
-internal static class HttpClientSetup
+public static class HttpClientSetup
 {
     private const int CONCURRENT_ACTIONS = 30;
     private const int QUEUED_ACTIONS = 10;

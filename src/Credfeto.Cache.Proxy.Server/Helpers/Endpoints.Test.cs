@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Credfeto.Cache.Proxy.Server.Helpers;
 
-internal static partial class Endpoints
+public static partial class Endpoints
 {
     private static WebApplication ConfigureTestEndpoints(this WebApplication app)
     {

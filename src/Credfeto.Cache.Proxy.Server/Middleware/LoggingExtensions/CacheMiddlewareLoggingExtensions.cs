@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Credfeto.Cache.Proxy.Server.Middleware.LoggingExtensions;
 
-internal static partial class CacheMiddlewareLoggingExtensions
+public static partial class CacheMiddlewareLoggingExtensions
 {
     [LoggerMessage(LogLevel.Error, EventId = 1, Message = "Host is not configured: https://{host}")]
     public static partial void NoConfigForHost(this ILogger<CacheMiddleware> logger, string host);
