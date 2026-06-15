@@ -111,7 +111,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Credfeto.Cache.Proxy.Storage.FileSystem\Credfeto.Cache.Proxy.Storage.FileSystem.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <InternalsVisibleTo Include="Credfeto.Cache.Proxy.Server.Tests" />
-  </ItemGroup>
+
 </Project>

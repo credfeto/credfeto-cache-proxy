@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Credfeto.Cache.Proxy.Server.Storage.Services.LoggerExtensions;
 
-internal static partial class ContentSourceLoggingExtensions
+public static partial class ContentSourceLoggingExtensions
 {
     [LoggerMessage(
         LogLevel.Error,
