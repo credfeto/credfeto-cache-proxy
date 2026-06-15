@@ -10,6 +10,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 - Removed InternalsVisibleTo from Credfeto.Cache.Proxy.Server and made types public so tests can access them without bypassing visibility
+- Updated call to HealthCheckClient.ExecuteAsync to pass required ILogger parameter added in Credfeto.Docker.HealthCheck.Http.Client 0.0.67.857
 ### Changed
 - Dependencies - Updated Credfeto.Enumeration to 1.2.145.1962
 - Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.127.1265

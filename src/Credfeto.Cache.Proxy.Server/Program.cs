@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,6 +6,7 @@ using Credfeto.Cache.Proxy.Server.Helpers;
 using Credfeto.Cache.Proxy.Server.Middleware;
 using Credfeto.Docker.HealthCheck.Http.Client;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Credfeto.Cache.Proxy.Server;
 
@@ -21,7 +22,11 @@ public static class Program
     public static async Task<int> Main(string[] args)
     {
         return HealthCheckClient.IsHealthCheck(args: args, out string? checkUrl)
-            ? await HealthCheckClient.ExecuteAsync(targetUrl: checkUrl, cancellationToken: CancellationToken.None)
+            ? await HealthCheckClient.ExecuteAsync(
+                targetUrl: checkUrl,
+                logger: NullLogger.Instance,
+                cancellationToken: CancellationToken.None
+            )
             : await RunServerAsync(args);
     }
 
