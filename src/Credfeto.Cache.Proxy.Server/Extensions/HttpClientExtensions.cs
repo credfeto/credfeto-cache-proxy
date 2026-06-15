@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 
 namespace Credfeto.Cache.Proxy.Server.Extensions;
 
-internal static class HttpClientExtensions
+public static class HttpClientExtensions
 {
     public static HttpClient WithBaseAddress(this HttpClient client, Uri baseAddress)
     {

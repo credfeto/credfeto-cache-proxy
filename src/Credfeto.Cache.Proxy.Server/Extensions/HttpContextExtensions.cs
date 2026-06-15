@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Credfeto.Cache.Proxy.Server.Extensions;
 
-internal static class HttpContextExtensions
+public static class HttpContextExtensions
 {
     public static ProductInfoHeaderValue? GetUserAgent(this HttpContext context)
     {

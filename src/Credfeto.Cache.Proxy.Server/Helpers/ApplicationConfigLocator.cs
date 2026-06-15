@@ -9,7 +9,7 @@ namespace Credfeto.Cache.Proxy.Server.Helpers;
     checkId: "UnusedType.Global",
     Justification = "Used in exe code. Not possible to unit test."
 )]
-internal static class ApplicationConfigLocator
+public static class ApplicationConfigLocator
 {
     [SuppressMessage(
         category: "ReSharper",
