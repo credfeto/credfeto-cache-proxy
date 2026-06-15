@@ -9,6 +9,15 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Security
 ### Added
 ### Fixed
+### Changed
+### Deprecated
+### Removed
+### Deployment Changes
+<!--
+Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
+-->
+## [0.0.72] - 2026-06-15
+### Fixed
 - Removed InternalsVisibleTo from Credfeto.Cache.Proxy.Server and made types public so tests can access them without bypassing visibility
 - Updated call to HealthCheckClient.ExecuteAsync to pass required ILogger parameter added in Credfeto.Docker.HealthCheck.Http.Client 0.0.67.857
 ### Changed
@@ -18,12 +27,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated Meziantou.Analyzer to 3.0.102
 - Dependencies - Updated Microsoft.Extensions to 10.0.9
 - Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.67.857
-### Deprecated
-### Removed
-### Deployment Changes
-<!--
-Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
--->
+
 ## [0.0.71] - 2026-06-12
 ### Changed
 - SDK - Updated global.json SDK rollForward to latestFeature
