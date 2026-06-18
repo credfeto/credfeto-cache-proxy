@@ -73,7 +73,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Credfeto.Docker.HealthCheck.Http.Client" Version="0.0.67.857" />
+    <PackageReference Include="Credfeto.Docker.HealthCheck.Http.Client" Version="0.0.69.892" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="10.0.9" />
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="10.0.9" />
     <PackageReference Include="NonBlocking" Version="2.1.2" />
