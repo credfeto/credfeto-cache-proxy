@@ -60,6 +60,5 @@ echo "Clear $OUTFOLDER" \
       -e Proxy__PublicUrl=https://localhost:8081 \
       -e Proxy__Storage=/cache \
       -v /cache/cache-proxy-test:/cache \
-      -v $BASEDIR/Credfeto.Cache.Proxy.Server/server.pfx:/usr/src/app/server.pfx \
+      -v "$BASEDIR"/Credfeto.Cache.Proxy.Server/server.pfx:/usr/src/app/server.pfx \
       "credfeto/nuget-proxy:test"
-      
