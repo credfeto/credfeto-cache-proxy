@@ -13,6 +13,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated FunFair.CodeAnalysis to 7.2.7.2152
 - Dependencies - Updated Meziantou.Analyzer to 3.0.122
 - Dependencies - Updated SonarAnalyzer.CSharp to 10.29.0.143774
+- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.74.985
 ### Deprecated
 ### Removed
 ### Deployment Changes
