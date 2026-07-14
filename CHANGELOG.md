@@ -16,6 +16,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.74.985
 - Dependencies - Updated FunFair.Test to 6.3.4.2441
 - Dependencies - Updated FunFair.Test.Source.Generator to 6.3.4.2441
+- Dependencies - Updated Serilog to 4.4.0
 ### Deprecated
 ### Removed
 ### Deployment Changes
