@@ -10,13 +10,16 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
-- SDK - Updated DotNet SDK to 10.0.302
 ### Deprecated
 ### Removed
 ### Deployment Changes
 <!--
 Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
 -->
+## [0.0.79] - 2026-07-15
+### Changed
+- SDK - Updated DotNet SDK to 10.0.302
+
 ## [0.0.78] - 2026-07-14
 ### Changed
 - Dependencies - Updated FunFair.CodeAnalysis to 7.2.7.2152
