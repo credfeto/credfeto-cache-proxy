@@ -17,7 +17,6 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.137.1543
 - Dependencies - Updated CSharpIsNullAnalyzer to 0.2.19
 - Dependencies - Updated FunFair.CodeAnalysis to 7.2.13.2323
-- Dependencies - Updated Meziantou.Analyzer to 3.0.253
 - Dependencies - Updated Nullable.Extended.Analyzer to 1.16.6891
 - Dependencies - Updated Roslynator.Analyzers to 5.0.0
 - Dependencies - Updated SonarAnalyzer.CSharp to 10.34.0.3385
@@ -27,6 +26,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated FunFair.Test.Source.Generator to 6.4.6.2749
 - Dependencies - Updated Microsoft.Extensions to 10.0.12
 - Dependencies - Updated NSubstitute to 6.2.0
+- Dependencies - Updated Meziantou.Analyzer to 3.0.257
 ### Deprecated
 ### Removed
 ### Deployment Changes
