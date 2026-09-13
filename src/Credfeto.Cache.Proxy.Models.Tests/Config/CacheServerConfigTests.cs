@@ -35,7 +35,7 @@ public sealed class CacheServerConfigTests : TestBase
     [InlineData("http://example.com", "example.com")]
     [InlineData("http://example.com/some/path", "example.com")]
     [InlineData("https://my-server.internal/api/v1", "my-server.internal")]
-    public void HostOnlyTargetReturnsDnsHost(string target, string expectedHost)
+    public static void HostOnlyTargetReturnsDnsHost(string target, string expectedHost)
     {
         CacheServerConfig config = new() { Target = target };
 
