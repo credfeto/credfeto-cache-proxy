@@ -23,6 +23,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated SonarAnalyzer.CSharp to 10.34.0.3385
 - Dependencies - Updated xunit.analyzers to 2.0.0
 - Dependencies - Updated xunit.v3 to 4.0.0
+- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.77.1109
 ### Deprecated
 ### Removed
 ### Deployment Changes
