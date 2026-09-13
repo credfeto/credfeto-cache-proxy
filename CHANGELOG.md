@@ -20,13 +20,13 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated Nullable.Extended.Analyzer to 1.16.6891
 - Dependencies - Updated Roslynator.Analyzers to 5.0.0
 - Dependencies - Updated SonarAnalyzer.CSharp to 10.34.0.3385
-- Dependencies - Updated xunit.analyzers to 2.0.0
 - Dependencies - Updated xunit.v3 to 4.0.0
 - Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.77.1109
 - Dependencies - Updated FunFair.Test.Source.Generator to 6.4.6.2749
 - Dependencies - Updated Microsoft.Extensions to 10.0.12
 - Dependencies - Updated NSubstitute to 6.2.0
 - Dependencies - Updated Meziantou.Analyzer to 3.0.257
+- Dependencies - Updated xunit.analyzers to 2.1.0
 ### Deprecated
 ### Removed
 ### Deployment Changes
