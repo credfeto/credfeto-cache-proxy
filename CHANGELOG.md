@@ -13,7 +13,6 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
-- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.79.1151
 ### Deprecated
 ### Removed
 ### Deployment Changes
@@ -21,6 +20,10 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 <!--
 Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
 -->
+
+## [0.0.83] - 2026-09-15
+### Changed
+- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.79.1151
 
 ## [0.0.82] - 2026-09-14
 ### Fixed
