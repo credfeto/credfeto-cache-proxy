@@ -12,6 +12,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Security
 ### Added
 ### Fixed
+- Corrected Serilog package reference asset metadata so build-time targets are included, fixing the buildcheck validation failure
 ### Changed
 - Dependencies - Updated Meziantou.Analyzer to 3.0.260
 ### Deprecated
