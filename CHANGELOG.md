@@ -12,6 +12,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Security
 ### Added
 ### Fixed
+- Corrected Serilog package IncludeAssets to satisfy FunFair.BuildCheck
 ### Changed
 - Dependencies - Updated Meziantou.Analyzer to 3.0.262
 ### Deprecated
