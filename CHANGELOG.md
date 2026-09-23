@@ -15,7 +15,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Fixed Serilog package IncludeAssets to include build and buildTransitive, matching repository package policy
 ### Changed
 - Dependencies - Updated Microsoft.Sbom.Targets to 4.1.13
-- Dependencies - Updated Meziantou.Analyzer to 3.0.283
+- Dependencies - Updated Meziantou.Analyzer to 3.0.284
 ### Deprecated
 ### Removed
 ### Deployment Changes
