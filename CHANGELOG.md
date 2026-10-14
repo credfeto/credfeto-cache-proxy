@@ -12,6 +12,17 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Security
 ### Added
 ### Fixed
+### Changed
+### Deprecated
+### Removed
+### Deployment Changes
+
+<!--
+Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
+-->
+
+## [0.0.84] - 2026-10-14
+### Fixed
 - Fixed Serilog package IncludeAssets to include build and buildTransitive, matching repository package policy
 ### Changed
 - Dependencies - Updated Microsoft.Sbom.Targets to 4.1.13
@@ -23,13 +34,6 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated Meziantou.Analyzer to 3.0.303
 - Dependencies - Updated Microsoft.Extensions to 10.0.13
 - Dependencies - Updated FunFair.CodeAnalysis to 7.2.19.2499
-### Deprecated
-### Removed
-### Deployment Changes
-
-<!--
-Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
--->
 
 ## [0.0.83] - 2026-09-15
 ### Changed
