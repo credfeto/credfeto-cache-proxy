@@ -14,6 +14,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Fixed
 ### Changed
 - Dependencies - Updated FunFair.CodeAnalysis to 7.2.20.2501
+- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.81.1260
 ### Deprecated
 ### Removed
 ### Deployment Changes
