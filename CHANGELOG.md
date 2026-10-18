@@ -13,7 +13,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
-- Dependencies - Updated Meziantou.Analyzer to 3.0.305
+- Dependencies - Updated Meziantou.Analyzer to 3.0.307
 ### Deprecated
 ### Removed
 ### Deployment Changes
