@@ -14,7 +14,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Fixed
 ### Changed
 - Dependencies - Updated Nullable.Extended.Analyzer to 1.17.0
-- Dependencies - Updated Meziantou.Analyzer to 3.0.312
+- Dependencies - Updated Meziantou.Analyzer to 3.0.313
 ### Deprecated
 ### Removed
 ### Deployment Changes
