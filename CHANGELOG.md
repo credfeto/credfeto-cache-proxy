@@ -13,10 +13,6 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
-- Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.141.1746
-- Dependencies - Updated FunFair.CodeAnalysis to 7.2.23.2624
-- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.83.1344
-- Dependencies - Updated Meziantou.Analyzer to 3.0.320
 ### Deprecated
 ### Removed
 ### Deployment Changes
@@ -24,6 +20,13 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 <!--
 Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
 -->
+
+## [0.0.90] - 2026-11-01
+### Changed
+- Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.141.1746
+- Dependencies - Updated FunFair.CodeAnalysis to 7.2.23.2624
+- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.83.1344
+- Dependencies - Updated Meziantou.Analyzer to 3.0.320
 
 ## [0.0.89] - 2026-10-31
 ### Changed
