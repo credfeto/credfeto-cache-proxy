@@ -14,6 +14,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Fixed
 ### Changed
 - Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.84.1364
+- Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.142.1766
 ### Deprecated
 ### Removed
 ### Deployment Changes
