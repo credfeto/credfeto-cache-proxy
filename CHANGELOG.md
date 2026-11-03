@@ -13,6 +13,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
+- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.84.1364
 ### Deprecated
 ### Removed
 ### Deployment Changes
