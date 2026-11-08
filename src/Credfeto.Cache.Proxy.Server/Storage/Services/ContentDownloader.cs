@@ -123,7 +123,7 @@ public sealed class ContentDownloader : IContentDownloader
     {
         string urlBase = baseUri.ToString();
 
-        if (urlBase.EndsWith('/'))
+        if (urlBase.EndsWith('/', StringComparison.Ordinal))
         {
             urlBase = urlBase[..^1];
         }
