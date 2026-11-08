@@ -10,7 +10,7 @@
     <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <EnforceExtendedAnalyzerRules>false</EnforceExtendedAnalyzerRules>
-    <Features>strict;flow-analysis</Features>
+    <Features>strict;flow-analysis;runtime-async=on</Features>
     <GenerateNeutralResourcesLanguageAttribute>true</GenerateNeutralResourcesLanguageAttribute>
     <GenerateSBOM>true</GenerateSBOM>
     <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
@@ -32,7 +32,7 @@
     <OutputType>Library</OutputType>
     <RunAOTCompilation>false</RunAOTCompilation>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net11.0</TargetFramework>
     <TieredCompilation>true</TieredCompilation>
     <TieredPGO>true</TieredPGO>
     <TreatSpecificWarningsAsErrors />
@@ -52,10 +52,6 @@
   <ItemGroup>
     <ProjectReference Include="../Credfeto.Cache.Proxy.Models/Credfeto.Cache.Proxy.Models.csproj" />
     <ProjectReference Include="../Credfeto.Cache.Proxy.Storage.Interfaces/Credfeto.Cache.Proxy.Storage.Interfaces.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.14" IncludeAssets="compile;runtime" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.14" IncludeAssets="compile;runtime" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AsyncFixer" Version="2.1.0" PrivateAssets="All" ExcludeAssets="runtime" />
