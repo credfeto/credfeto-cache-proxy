@@ -13,9 +13,9 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
-- SDK - Updated DotNet SDK to 11.0.100-rc.3.26522.148
 - Dependencies - Updated Credfeto.Enumeration to 1.2.158.2511
 - Target .NET 11 and enable runtime-async
+- SDK - Updated DotNet SDK to 11.0.100
 ### Deprecated
 ### Removed
 ### Deployment Changes
