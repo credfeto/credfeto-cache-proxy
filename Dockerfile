@@ -6,6 +6,9 @@ WORKDIR /usr/src/app
 COPY Credfeto.Cache.Proxy.Server .
 COPY appsettings.json .
 
+# Fail the image build if the binary cannot start in this runtime base
+RUN ["/usr/src/app/Credfeto.Cache.Proxy.Server", "--self-test"]
+
 CMD ["sh", "-c", "mkdir /data && chmod -R 1654:1654 /data"]
 
 EXPOSE 8080
