@@ -14,7 +14,6 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Added a `--self-test` switch to the server that builds the configuration and service provider and exits 0, or non-zero with a one-line reason, without binding ports or starting hosted services; the Dockerfile runs it at build time in the final image so a binary that cannot start fails the image build (#56)
 ### Fixed
 ### Changed
-- Dependencies - Updated FunFair.CodeAnalysis to 7.2.26.2691
 - Dependencies - Updated Meziantou.Analyzer to 3.0.340
 - Dependencies - Updated Philips.CodeAnalysis.MaintainabilityAnalyzers to 2.2.0
 - Dependencies - Updated SonarAnalyzer.CSharp to 10.36.0.15337
@@ -22,6 +21,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated xunit.v3 to 4.0.3
 - Dependencies - Updated Microsoft.Extensions to 11.0.0
 - Dependencies - Updated Credfeto.Enumeration to 1.2.159.2554
+- Dependencies - Updated FunFair.CodeAnalysis to 7.2.27.2695
 ### Deprecated
 ### Removed
 ### Deployment Changes
