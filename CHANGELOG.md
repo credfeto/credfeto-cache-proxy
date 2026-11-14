@@ -22,6 +22,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated Microsoft.Extensions to 11.0.0
 - Dependencies - Updated Credfeto.Enumeration to 1.2.159.2554
 - Dependencies - Updated FunFair.CodeAnalysis to 7.2.27.2695
+- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.85.1404
 ### Deprecated
 ### Removed
 ### Deployment Changes
