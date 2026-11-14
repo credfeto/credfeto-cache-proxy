@@ -21,6 +21,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated xunit.analyzers to 2.3.0
 - Dependencies - Updated xunit.v3 to 4.0.3
 - Dependencies - Updated Microsoft.Extensions to 11.0.0
+- Dependencies - Updated Credfeto.Enumeration to 1.2.159.2554
 ### Deprecated
 ### Removed
 ### Deployment Changes
