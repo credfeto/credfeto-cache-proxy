@@ -11,8 +11,19 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ## [Unreleased]
 ### Security
 ### Added
-- Added a `--self-test` switch to the server that builds the configuration and service provider and exits 0, or non-zero with a one-line reason, without binding ports or starting hosted services; the Dockerfile runs it at build time in the final image so a binary that cannot start fails the image build (#56)
 ### Fixed
+### Changed
+### Deprecated
+### Removed
+### Deployment Changes
+
+<!--
+Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
+-->
+
+## [0.0.94] - 2026-11-14
+### Added
+- Added a `--self-test` switch to the server that builds the configuration and service provider and exits 0, or non-zero with a one-line reason, without binding ports or starting hosted services; the Dockerfile runs it at build time in the final image so a binary that cannot start fails the image build (#56)
 ### Changed
 - Dependencies - Updated Meziantou.Analyzer to 3.0.340
 - Dependencies - Updated Philips.CodeAnalysis.MaintainabilityAnalyzers to 2.2.0
@@ -23,13 +34,6 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated Credfeto.Enumeration to 1.2.159.2554
 - Dependencies - Updated FunFair.CodeAnalysis to 7.2.27.2695
 - Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.85.1404
-### Deprecated
-### Removed
-### Deployment Changes
-
-<!--
-Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
--->
 
 ## [0.0.93] - 2026-11-14
 ### Changed
