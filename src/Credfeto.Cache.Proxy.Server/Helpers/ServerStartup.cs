@@ -1,10 +1,12 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
+using System.Threading.Tasks;
 using Credfeto.Cache.Proxy.Models.Config;
 using Credfeto.Cache.Proxy.Server.Middleware;
 using Credfeto.Cache.Proxy.Server.Storage;
@@ -18,6 +20,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Serilog;
 using Serilog.Configuration;
 using Serilog.Core;
@@ -56,10 +59,16 @@ public static class ServerStartup
         Console.WriteLine($"Max worker threads {maxWorker}, Max IOC threads {maxIoc}");
     }
 
-    internal static WebApplication CreateApp(string[] args)
+    internal static async ValueTask VerifyStartupAsync(string configPath)
     {
-        string configPath = ApplicationConfigLocator.ConfigurationFilesPath;
+        await using (WebApplication app = CreateApp(args: [], configPath: configPath))
+        {
+            ResolveStartupServices(app.Services);
+        }
+    }
 
+    internal static WebApplication CreateApp(string[] args, string configPath)
+    {
         return WebApplication
             .CreateSlimBuilder(args)
             .ConfigureSettings(configPath: configPath)
@@ -67,6 +76,17 @@ public static class ServerStartup
             .ConfigureAppHost()
             .ConfigureWebHost(configPath: configPath)
             .Build();
+    }
+
+    private static void ResolveStartupServices(IServiceProvider services)
+    {
+        // Production does not validate the container on build, so resolve the graph explicitly.
+        // Kestrel only binds its ports when the server is started.
+        _ = services.GetRequiredService<IOptions<ServerConfig>>().Value;
+        _ = services.GetRequiredService<IOptions<KestrelServerOptions>>().Value;
+        _ = services.GetRequiredService<ServerHeaderMiddleware>();
+        _ = services.GetRequiredService<CacheMiddleware>();
+        services.GetRequiredService<IHttpClientFactory>().CreateClient(nameof(ContentDownloader)).Dispose();
     }
 
     private static WebApplicationBuilder ConfigureAppHost(this WebApplicationBuilder builder)

@@ -21,13 +21,30 @@ public static class Program
     )]
     public static async Task<int> Main(string[] args)
     {
-        return HealthCheckClient.IsHealthCheck(args: args, out string? checkUrl)
-            ? await HealthCheckClient.ExecuteAsync(
-                targetUrl: checkUrl,
-                logger: NullLogger.Instance,
-                cancellationToken: CancellationToken.None
-            )
-            : await RunServerAsync(args);
+        return await CommandDispatcher.DispatchAsync(
+            args: args,
+            healthCheck: CheckHealthAsync,
+            selfTest: RunSelfTestAsync,
+            runServer: () => RunServerAsync(args)
+        );
+    }
+
+    private static ValueTask<int> CheckHealthAsync(string checkUrl)
+    {
+        return HealthCheckClient.ExecuteAsync(
+            targetUrl: checkUrl,
+            logger: NullLogger.Instance,
+            cancellationToken: CancellationToken.None
+        );
+    }
+
+    private static ValueTask<int> RunSelfTestAsync()
+    {
+        return SelfTest.RunAsync(
+            configPath: ApplicationConfigLocator.ConfigurationFilesPath,
+            output: Console.Out,
+            cancellationToken: CancellationToken.None
+        );
     }
 
     private static async ValueTask<int> RunServerAsync(string[] args)
@@ -38,7 +55,12 @@ public static class Program
 
         try
         {
-            await using (WebApplication app = ServerStartup.CreateApp(args))
+            await using (
+                WebApplication app = ServerStartup.CreateApp(
+                    args: args,
+                    configPath: ApplicationConfigLocator.ConfigurationFilesPath
+                )
+            )
             {
                 await RunAsync(app);
 
