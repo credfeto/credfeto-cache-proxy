@@ -11,7 +11,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ## [Unreleased]
 ### Security
 ### Added
-- Added a build-time `--self-test` switch run during docker build so a binary that cannot start fails the image build (#56)
+- Added a `--self-test` switch to the server that builds the configuration and service provider and exits 0, or non-zero with a one-line reason, without binding ports or starting hosted services; the Dockerfile runs it at build time in the final image so a binary that cannot start fails the image build (#56)
 ### Fixed
 ### Changed
 - Dependencies - Updated FunFair.CodeAnalysis to 7.2.26.2691
