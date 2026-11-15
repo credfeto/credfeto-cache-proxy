@@ -12,6 +12,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Security
 ### Added
 ### Fixed
+- Health check now logs failure reason to console instead of NullLogger (#49)
 ### Changed
 - Dependencies - Updated FunFair.CodeAnalysis to 7.2.28.2699
 ### Deprecated
