@@ -6,7 +6,7 @@ using Credfeto.Cache.Proxy.Server.Helpers;
 using Credfeto.Cache.Proxy.Server.Middleware;
 using Credfeto.Docker.HealthCheck.Http.Client;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Logging;
 
 namespace Credfeto.Cache.Proxy.Server;
 
@@ -23,17 +23,19 @@ public static class Program
     {
         return await CommandDispatcher.DispatchAsync(
             args: args,
-            healthCheck: CheckHealthAsync,
+            healthCheck: RunHealthCheckAsync,
             selfTest: RunSelfTestAsync,
             runServer: () => RunServerAsync(args)
         );
     }
 
-    private static ValueTask<int> CheckHealthAsync(string checkUrl)
+    private static async ValueTask<int> RunHealthCheckAsync(string checkUrl)
     {
-        return HealthCheckClient.ExecuteAsync(
+        using ILoggerFactory loggerFactory = LoggerFactory.Create(static builder => builder.AddConsole());
+
+        return await HealthCheckClient.ExecuteAsync(
             targetUrl: checkUrl,
-            logger: NullLogger.Instance,
+            logger: loggerFactory.CreateLogger(nameof(HealthCheckClient)),
             cancellationToken: CancellationToken.None
         );
     }
