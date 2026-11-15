@@ -15,6 +15,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Health check now logs failure reason to console instead of NullLogger (#49)
 ### Changed
 - Dependencies - Updated FunFair.CodeAnalysis to 7.2.28.2699
+- Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.143.1843
 ### Deprecated
 ### Removed
 ### Deployment Changes
