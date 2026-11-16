@@ -12,11 +12,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Security
 ### Added
 ### Fixed
-- Health check now logs failure reason to console instead of NullLogger (#49)
 ### Changed
-- Dependencies - Updated FunFair.CodeAnalysis to 7.2.28.2699
-- Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.143.1843
-- Dependencies - Updated Meziantou.Analyzer to 3.0.341
 ### Deprecated
 ### Removed
 ### Deployment Changes
@@ -24,6 +20,14 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 <!--
 Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
 -->
+
+## [0.0.95] - 2026-11-16
+### Fixed
+- Health check now logs failure reason to console instead of NullLogger (#49)
+### Changed
+- Dependencies - Updated FunFair.CodeAnalysis to 7.2.28.2699
+- Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.143.1843
+- Dependencies - Updated Meziantou.Analyzer to 3.0.341
 
 ## [0.0.94] - 2026-11-14
 ### Added
