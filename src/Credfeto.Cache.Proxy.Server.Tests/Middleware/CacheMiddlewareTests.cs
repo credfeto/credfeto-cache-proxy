@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Time.Testing;
 using NSubstitute;
-using Polly.Bulkhead;
+using Polly.RateLimiting;
 using Polly.Timeout;
 using Xunit;
 
@@ -185,7 +185,7 @@ public sealed class CacheMiddlewareTests : LoggingTestBase
     }
 
     [Fact]
-    public async Task InvokeAsync_WhenBulkheadRejectedException_Returns429Async()
+    public async Task InvokeAsync_WhenRateLimiterRejectedException_Returns429Async()
     {
         IContentSource contentSource = GetSubstitute<IContentSource>();
         contentSource
@@ -195,7 +195,7 @@ public sealed class CacheMiddlewareTests : LoggingTestBase
                 userAgent: Arg.Any<System.Net.Http.Headers.ProductInfoHeaderValue?>(),
                 cancellationToken: Arg.Any<CancellationToken>()
             )
-            .Returns<PackageResult?>(_ => throw new BulkheadRejectedException());
+            .Returns<PackageResult?>(_ => throw new RateLimiterRejectedException());
 
         CacheMiddleware middleware = this.CreateMiddleware(contentSource);
 
