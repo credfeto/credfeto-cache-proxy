@@ -15,6 +15,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Changed
 - Dependencies - Updated Credfeto.Enumeration to 1.2.161.2590
 - Dependencies - Updated Serilog.Extensions.Logging to 11.0.0
+- TBD - to be finalized after review
 ### Deprecated
 ### Removed
 ### Deployment Changes
