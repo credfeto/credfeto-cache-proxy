@@ -12,11 +12,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Security
 ### Added
 ### Fixed
-- Duplicate logging EventId 1 in content source logging, CachedPackage event now uses EventId 2
 ### Changed
-- Dependencies - Updated Credfeto.Enumeration to 1.2.161.2590
-- Dependencies - Updated Serilog.Extensions.Logging to 11.0.0
-- Replaced Microsoft.Extensions.Http.Polly with Microsoft.Extensions.Http.Resilience for upstream HTTP resilience (concurrency limiter and timeout, using the same values); cache middleware now handles rate limiter and timeout rejections
 ### Deprecated
 ### Removed
 ### Deployment Changes
@@ -24,6 +20,14 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 <!--
 Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
 -->
+
+## [0.0.98] - 2026-11-18
+### Fixed
+- Duplicate logging EventId 1 in content source logging, CachedPackage event now uses EventId 2
+### Changed
+- Dependencies - Updated Credfeto.Enumeration to 1.2.161.2590
+- Dependencies - Updated Serilog.Extensions.Logging to 11.0.0
+- Replaced Microsoft.Extensions.Http.Polly with Microsoft.Extensions.Http.Resilience for upstream HTTP resilience (concurrency limiter and timeout, using the same values); cache middleware now handles rate limiter and timeout rejections
 
 ## [0.0.97] - 2026-11-17
 ### Changed
