@@ -19,7 +19,7 @@ public static partial class ContentSourceLoggingExtensions
 
     [LoggerMessage(
         LogLevel.Information,
-        EventId = 1,
+        EventId = 2,
         Message = "Retrieved Cached fileW from {upstream} Length: {length}"
     )]
     public static partial void CachedPackage(this ILogger<ContentSource> logger, Uri upstream, long length);
