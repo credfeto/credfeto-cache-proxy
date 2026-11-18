@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
-using Polly.Bulkhead;
+using Polly.RateLimiting;
 using Polly.Timeout;
 
 namespace Credfeto.Cache.Proxy.Server.Middleware;
@@ -96,7 +96,7 @@ public sealed class CacheMiddleware : IMiddleware
         {
             Failed(context: context, exception.StatusCode ?? HttpStatusCode.InternalServerError);
         }
-        catch (Exception exception) when (exception is TimeoutRejectedException or BulkheadRejectedException)
+        catch (Exception exception) when (exception is TimeoutRejectedException or RateLimiterRejectedException)
         {
             TooManyRequests(context);
         }

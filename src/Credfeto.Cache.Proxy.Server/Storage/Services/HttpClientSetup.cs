@@ -18,17 +18,19 @@ public static class HttpClientSetup
     public static IServiceCollection AddContentClient(this IServiceCollection services)
     {
         return services
-            .AddHttpClient(
-                nameof(ContentDownloader),
-                configureClient: httpClient => InitializeContentClient(httpClient: httpClient, httpTimeout: HttpTimeout)
+            .AddHttpClient(nameof(ContentDownloader), configureClient: httpClient =>
+                InitializeContentClient(httpClient: httpClient, httpTimeout: HttpTimeout)
             )
             .SetHandlerLifetime(HandlerTimeout)
             .ConfigurePrimaryHttpMessageHandler(configureHandler: _ => new HttpClientHandler
             {
                 AutomaticDecompression = DecompressionMethods.All,
             })
-            .AddPolicyHandler(Policy.BulkheadAsync<HttpResponseMessage>(CONCURRENT_ACTIONS * 2, QUEUED_ACTIONS * 2))
-            .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(PollyTimeout))
+            .AddResilienceHandler(pipelineName: nameof(ContentDownloader), configure: static builder =>
+                builder
+                    .AddConcurrencyLimiter(permitLimit: CONCURRENT_ACTIONS * 2, queueLimit: QUEUED_ACTIONS * 2)
+                    .AddTimeout(PollyTimeout)
+            )
             .Services;
     }
 
