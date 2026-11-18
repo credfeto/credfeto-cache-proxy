@@ -12,8 +12,9 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Security
 ### Added
 ### Fixed
+- Duplicate logging EventId 1 in content source logging, CachedPackage event now uses EventId 2
 ### Changed
-- TBD - to be finalized after review
+- Replaced Microsoft.Extensions.Http.Polly with Microsoft.Extensions.Http.Resilience for upstream HTTP resilience (concurrency limiter and timeout, using the same values); cache middleware now handles rate limiter and timeout rejections
 ### Deprecated
 ### Removed
 ### Deployment Changes
