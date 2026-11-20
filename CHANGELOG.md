@@ -13,10 +13,6 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
-- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.89.1454
-- Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.146.1868
-- Dependencies - Updated FunFair.CodeAnalysis to 7.2.31.2712
-- Dependencies - Updated SonarAnalyzer.CSharp to 10.37.0.15768
 ### Deprecated
 ### Removed
 ### Deployment Changes
@@ -24,6 +20,13 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 <!--
 Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
 -->
+
+## [0.0.101] - 2026-11-20
+### Changed
+- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.89.1454
+- Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.146.1868
+- Dependencies - Updated FunFair.CodeAnalysis to 7.2.31.2712
+- Dependencies - Updated SonarAnalyzer.CSharp to 10.37.0.15768
 
 ## [0.0.100] - 2026-11-20
 ### Changed
