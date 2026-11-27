@@ -13,8 +13,6 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
-- Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.150.1907
-- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.93.1493
 ### Deprecated
 ### Removed
 ### Deployment Changes
@@ -22,6 +20,11 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 <!--
 Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
 -->
+
+## [0.0.110] - 2026-11-27
+### Changed
+- Dependencies - Updated Credfeto.Version.Information.Generator to 1.0.150.1907
+- Dependencies - Updated Credfeto.Docker.HealthCheck.Http.Client to 0.0.93.1493
 
 ## [0.0.109] - 2026-11-27
 ### Changed
